@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Core", "Lishl.Core\Lishl.Core.csproj", "{D713C4D0-2CBC-4E00-A7EC-809E7BE891A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Users.Api", "Lishl.Users.Api\Lishl.Users.Api.csproj", "{FF402D6E-7CC0-4A47-8103-B2534C4E763E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Data", "Lishl.Data\Lishl.Data.csproj", "{D7E70684-9EB5-4A20-8594-C751D3FAE665}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D713C4D0-2CBC-4E00-A7EC-809E7BE891A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D713C4D0-2CBC-4E00-A7EC-809E7BE891A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D713C4D0-2CBC-4E00-A7EC-809E7BE891A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D713C4D0-2CBC-4E00-A7EC-809E7BE891A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF402D6E-7CC0-4A47-8103-B2534C4E763E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF402D6E-7CC0-4A47-8103-B2534C4E763E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF402D6E-7CC0-4A47-8103-B2534C4E763E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF402D6E-7CC0-4A47-8103-B2534C4E763E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7E70684-9EB5-4A20-8594-C751D3FAE665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7E70684-9EB5-4A20-8594-C751D3FAE665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7E70684-9EB5-4A20-8594-C751D3FAE665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7E70684-9EB5-4A20-8594-C751D3FAE665}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
