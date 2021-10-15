@@ -7,16 +7,16 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
 {
     public class DeleteUserCommandHandler: AsyncRequestHandler<DeleteUserCommand>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _usersRepository;
 
-        public DeleteUserCommandHandler(IUserRepository userRepository)
+        public DeleteUserCommandHandler(IUsersRepository usersRepository)
         {
-            _userRepository = userRepository;
+            _usersRepository = usersRepository;
         }
 
         protected override async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            await _userRepository.Delete(request.Id);
+            await _usersRepository.DeleteAsync(request.Id);
         }
     }
 }

@@ -1,7 +1,15 @@
 .idea/**
+Lishl.GraphQL/bin/**
+Lishl.GraphQL/obj/**
 Lishl.Users.Api/bin/**
 Lishl.Users.Api/obj/**
+Lishl.Links.Api/bin/**
+Lishl.Links.Api/obj/**
+Lishl.QRCodes.Api/bin/**
+Lishl.QRCodes.Api/obj/**
 Lishl.Core/bin/**
 Lishl.Core/obj/**
-Lishl.Data/bin/**
-Lishl.Data/obj/**
+Lishl.Infrastructure.MongoDb/bin/**
+Lishl.Infrastructure.MongoDb/obj/**
+Lishl.Infrastructure.PostgreSql/obj/**
+Lishl.Infrastructure.PostgreSql/bin/**

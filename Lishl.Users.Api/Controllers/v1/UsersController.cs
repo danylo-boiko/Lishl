@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Lishl.Core;
 using Lishl.Core.Models;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
@@ -27,22 +29,25 @@ namespace Lishl.Users.Api.Controllers.v1
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<UserResponse>> Get([FromQuery] PaginationFilter paginationFilter)
+        {
+            var users = await _mediator.Send(new GetUsersByPaginationFilterQuery { PaginationFilter = paginationFilter });
+            var response = _mapper.Map<IEnumerable<UserResponse>>(users);
+            return Ok(response);
+        }
+
         [HttpGet("{userId}")]
         public async Task<ActionResult<UserResponse>> GetUserById([FromRoute] Guid userId)
         {
-            if (userId == Guid.Empty)
+            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+
+            if (storedUser == null)
             {
-                return BadRequest("User id is empty.");
+                return BadRequest($"User with id {userId} not found.");
             }
 
-            var user = await _mediator.Send(new GetUserByIdQuery { Id = userId });
-
-            if (user == null)
-            {
-                return BadRequest($"User with id {userId} isn't found.");
-            }
-
-            var response = _mapper.Map<UserResponse>(user);
+            var response = _mapper.Map<UserResponse>(storedUser);
 
             return Ok(response);
         }
@@ -66,24 +71,25 @@ namespace Lishl.Users.Api.Controllers.v1
         [HttpPut("{userId}")]
         public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
         {
-            if (userId == Guid.Empty)
-            {
-                return BadRequest("User id is empty.");
-            }
-
             if (updateUserRequest == null)
             {
                 return BadRequest("Request body is empty.");
             }
 
-            var user = await _mediator.Send(new UpdateUserCommand
+            var updateUserCommand = new UpdateUserCommand
             {
                 Id = userId,
                 Username = updateUserRequest.Username,
                 Email = updateUserRequest.Email,
-                HashedPassword = _passwordHasher.HashPassword(new User(), updateUserRequest.Password),
                 Roles = updateUserRequest.Roles
-            });
+            };
+
+            if (updateUserRequest.Password != null)
+            {
+                updateUserCommand.HashedPassword = _passwordHasher.HashPassword(new User(), updateUserRequest.Password);
+            }
+            
+            var user = await _mediator.Send(updateUserCommand);
 
             var response = _mapper.Map<UserResponse>(user);
 
@@ -93,9 +99,11 @@ namespace Lishl.Users.Api.Controllers.v1
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
         {
-            if (userId == Guid.Empty)
+            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+
+            if (storedUser == null)
             {
-                return BadRequest("User id is empty.");
+                return BadRequest($"User with id {userId} not found.");
             }
 
             await _mediator.Send(new DeleteUserCommand{Id = userId});

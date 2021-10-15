@@ -8,11 +8,11 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
 {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _usersRepository;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository)
+        public UpdateUserCommandHandler(IUsersRepository usersRepository)
         {
-            _userRepository = userRepository;
+            _usersRepository = usersRepository;
         }
 
         public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -26,9 +26,9 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
                 Roles = request.Roles
             };
 
-            await _userRepository.Update(user);
+            await _usersRepository.UpdateAsync(user);
             
-            return await _userRepository.GetById(user.Id);
+            return await _usersRepository.GetAsync(user.Id);
         }
     }
 }
