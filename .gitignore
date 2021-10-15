@@ -1,4 +1,6 @@
 .idea/**
+Lishl.GraphQL/bin/**
+Lishl.GraphQL/obj/**
 Lishl.Users.Api/bin/**
 Lishl.Users.Api/obj/**
 Lishl.Links.Api/bin/**

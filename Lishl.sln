@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Infrastructure.MongoD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Infrastructure.PostgreSql", "Lishl.Infrastructure.PostgreSql\Lishl.Infrastructure.PostgreSql.csproj", "{2AFC3093-D637-4FBB-801A-C47DA131E3EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.GraphQL", "Lishl.GraphQL\Lishl.GraphQL.csproj", "{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{2AFC3093-D637-4FBB-801A-C47DA131E3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AFC3093-D637-4FBB-801A-C47DA131E3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AFC3093-D637-4FBB-801A-C47DA131E3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
