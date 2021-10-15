@@ -17,7 +17,7 @@ namespace Lishl.Users.Api.Cqrs.Queries.Handlers
         
         public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _userRepository.GetById(request.Id); 
+            return await _userRepository.GetAsync(request.Id); 
         }
     }
 }

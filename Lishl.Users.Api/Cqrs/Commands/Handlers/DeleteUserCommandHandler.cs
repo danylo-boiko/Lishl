@@ -16,7 +16,7 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
 
         protected override async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            await _userRepository.Delete(request.Id);
+            await _userRepository.DeleteAsync(request.Id);
         }
     }
 }

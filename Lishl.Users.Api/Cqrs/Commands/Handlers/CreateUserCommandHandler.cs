@@ -27,9 +27,9 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
                 Roles = request.Roles
             };
 
-            await _userRepository.Create(user);
+            await _userRepository.CreateAsync(user);
             
-            return await _userRepository.GetById(user.Id);
+            return await _userRepository.GetAsync(user.Id);
         }
     }
 }

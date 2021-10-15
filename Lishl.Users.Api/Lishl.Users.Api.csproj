@@ -16,7 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Lishl.Core\Lishl.Core.csproj" />
-      <ProjectReference Include="..\Lishl.Data\Lishl.Data.csproj" />
+      <ProjectReference Include="..\Lishl.Infrastructure.PostgreSql\Lishl.Infrastructure.PostgreSql.csproj" />
     </ItemGroup>
 
 </Project>
