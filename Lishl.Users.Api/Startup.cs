@@ -26,7 +26,7 @@ namespace Lishl.Users.Api
         {
             services.AddPostgreSql(Configuration.GetConnectionString("PostgreSQLConnection"));
             
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
             
             services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
             

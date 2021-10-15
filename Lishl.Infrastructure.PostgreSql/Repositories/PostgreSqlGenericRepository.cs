@@ -12,7 +12,6 @@ namespace Lishl.Infrastructure.PostgreSql.Repositories
 {
     public abstract class PostgreSqlGenericRepository <T1, T2> : IGenericRepository<T1, T2> where T1: class, IBaseModel<T2>
     {
-        
         private readonly PostgreSqlDbContext _context;
 
         public PostgreSqlGenericRepository(PostgreSqlDbContext context)

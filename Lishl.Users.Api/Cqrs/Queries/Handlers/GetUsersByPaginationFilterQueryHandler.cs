@@ -9,16 +9,16 @@ namespace Lishl.Users.Api.Cqrs.Queries.Handlers
 {
     public class GetUsersByPaginationFilterQueryHandler : IRequestHandler<GetUsersByPaginationFilterQuery, List<User>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _usersRepository;
 
-        public GetUsersByPaginationFilterQueryHandler(IUserRepository userRepository)
+        public GetUsersByPaginationFilterQueryHandler(IUsersRepository usersRepository)
         {
-            _userRepository = userRepository;
+            _usersRepository = usersRepository;
         }
         
         public async Task<List<User>> Handle(GetUsersByPaginationFilterQuery request, CancellationToken cancellationToken)
         {
-            return await _userRepository.GetAsync(request.PaginationFilter);
+            return await _usersRepository.GetAsync(request.PaginationFilter);
         }
     }
 }
