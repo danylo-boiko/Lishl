@@ -8,13 +8,11 @@ namespace Lishl.Infrastructure.MongoDb
     {
         public static IServiceCollection AddMongoDb(this IServiceCollection services, string connection)
         {
-            services.AddScoped<IMongoClient>(_ =>
-
-                new MongoClient(new MongoClientSettings()
+            services.AddScoped<IMongoDatabase>(_ => 
                 {
-                    GuidRepresentation = GuidRepresentation.Standard,
-                    Server = new MongoServerAddress(connection)
-                })
+                    var client = new MongoClient(connection);
+                    return client.GetDatabase("LinksService");
+                }
             );
 
             return services;
