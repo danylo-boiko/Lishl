@@ -4,5 +4,8 @@ using MediatR;
 
 namespace Lishl.GraphQL.Cqrs.Queries
 {
-    public record GetUserByIdQuery(Guid UserId) : IRequest<User>;
+    public record GetUserByIdQuery : IRequest<User>
+    {
+        public Guid UserId { get; set; } 
+    }
 }

@@ -1,9 +1,13 @@
+using System;
 using GraphQL.Server;
 using GraphQL.Types;
+using Lishl.Core;
+using Lishl.Core.Services;
 using Lishl.GraphQL.GraphQL.Mutations;
 using Lishl.GraphQL.GraphQL.Queries;
 using Lishl.GraphQL.GraphQL.Schemas;
 using Lishl.GraphQL.GraphQL.Types;
+using Lishl.GraphQL.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,13 +27,28 @@ namespace Lishl.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient(HttpClientNames.UsersClient, client =>
+            {
+                client.BaseAddress = new Uri(Configuration.GetConnectionString("UsersService"));
+            });
+
+            services.AddHttpClient(HttpClientNames.LinksClient, client =>
+            {
+                client.BaseAddress = new Uri(Configuration.GetConnectionString("LinksService"));
+            });
+
+            
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ILinksService, LinksService>();
+
             services.AddScoped<LishlQuery>();
             services.AddScoped<LishlMutation>();
 
             services.AddScoped<UserType>();
             services.AddScoped<LinkType>();
             services.AddScoped<LinkFollowType>();
-
+            services.AddScoped<UserRoleType>();
+            
             services.AddScoped<CreateUserType>();
             services.AddScoped<CreateLinkType>();
             services.AddScoped<CreateLinkFollowType>();

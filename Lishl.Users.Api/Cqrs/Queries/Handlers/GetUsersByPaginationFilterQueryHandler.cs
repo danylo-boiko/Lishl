@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Lishl.Users.Api.Cqrs.Queries.Handlers
 {
-    public class GetUsersByPaginationFilterQueryHandler : IRequestHandler<GetUsersByPaginationFilterQuery, List<User>>
+    public class GetUsersByPaginationFilterQueryHandler : IRequestHandler<GetUsersByPaginationFilterQuery, IEnumerable<User>>
     {
         private readonly IUsersRepository _usersRepository;
 
@@ -16,7 +16,7 @@ namespace Lishl.Users.Api.Cqrs.Queries.Handlers
             _usersRepository = usersRepository;
         }
         
-        public async Task<List<User>> Handle(GetUsersByPaginationFilterQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetUsersByPaginationFilterQuery request, CancellationToken cancellationToken)
         {
             return await _usersRepository.GetAsync(request.PaginationFilter);
         }

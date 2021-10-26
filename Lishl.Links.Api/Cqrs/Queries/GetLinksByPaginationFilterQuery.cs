@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Lishl.Links.Api.Cqrs.Queries
 {
-    public class GetLinksByPaginationFilterQuery :  IRequest<List<Link>>
+    public record GetLinksByPaginationFilterQuery :  IRequest<IEnumerable<Link>>
     {
         public PaginationFilter PaginationFilter { get; set; }
     }

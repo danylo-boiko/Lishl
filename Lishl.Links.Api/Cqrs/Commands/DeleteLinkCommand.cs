@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Lishl.Links.Api.Cqrs.Commands
 {
-    public class DeleteLinkCommand : IRequest
+    public record DeleteLinkCommand : IRequest
     {
         public Guid Id { get; set; }
     }

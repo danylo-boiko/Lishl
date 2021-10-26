@@ -26,6 +26,11 @@ namespace Lishl.Infrastructure.PostgreSql.Repositories
 
         public Task<List<T1>> GetAsync(PaginationFilter paginationFilter)
         {
+            if (paginationFilter.Limit == 0)
+            {
+                return _context.Set<T1>().Skip(paginationFilter.Offset).ToListAsync();
+            }
+            
             return _context.Set<T1>().Skip(paginationFilter.Offset).Take(paginationFilter.Limit).ToListAsync();
         }
 

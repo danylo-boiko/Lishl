@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Lishl.GraphQL.Cqrs.Queries
 {
-    public record GetUsersQuery() : IRequest<IEnumerable<User>>;
+    public record GetUsersQuery : IRequest<IEnumerable<User>>;
 }

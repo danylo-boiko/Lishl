@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Lishl.Links.Api.Cqrs.Commands
 {
-    public class UpdateLinkCommand : IRequest<Link>
+    public record UpdateLinkCommand : IRequest<Link>
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

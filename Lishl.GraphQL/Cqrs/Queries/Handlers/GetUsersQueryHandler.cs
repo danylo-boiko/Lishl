@@ -2,15 +2,23 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Lishl.Core.Models;
+using Lishl.Core.Services;
 using MediatR;
 
 namespace Lishl.GraphQL.Cqrs.Queries.Handlers
 {
     public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<User>>
     {
-        public Task<IEnumerable<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        private readonly IUsersService _usersService;
+
+        public GetUsersQueryHandler(IUsersService usersService)
         {
-            throw new System.NotImplementedException();
+            _usersService = usersService;
+        }
+        
+        public async Task<IEnumerable<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        {
+            return await _usersService.Get();
         }
     }
 }

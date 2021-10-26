@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Lishl.Links.Api.Cqrs.Queries.Handlers
 {
-    public class GetLinksByPaginationFilterQueryHandler : IRequestHandler<GetLinksByPaginationFilterQuery, List<Link>>
+    public class GetLinksByPaginationFilterQueryHandler : IRequestHandler<GetLinksByPaginationFilterQuery, IEnumerable<Link>>
     {
         private readonly ILinksRepository _linksRepository;
 
@@ -16,7 +16,7 @@ namespace Lishl.Links.Api.Cqrs.Queries.Handlers
             _linksRepository = linksRepository;
         }
         
-        public async Task<List<Link>> Handle(GetLinksByPaginationFilterQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Link>> Handle(GetLinksByPaginationFilterQuery request, CancellationToken cancellationToken)
         {
             return await _linksRepository.GetAsync(request.PaginationFilter);
         }
