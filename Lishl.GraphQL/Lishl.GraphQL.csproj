@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Cqrs" />
+      <Folder Include="Cqrs\Commands\Handlers" />
     </ItemGroup>
 
     <ItemGroup>

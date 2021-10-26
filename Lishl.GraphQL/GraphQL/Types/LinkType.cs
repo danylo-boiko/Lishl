@@ -1,5 +1,6 @@
 ﻿using GraphQL.Types;
 using Lishl.Core.Models;
+using Lishl.GraphQL.Cqrs.Queries;
 using MediatR;
 
 namespace Lishl.GraphQL.GraphQL.Types

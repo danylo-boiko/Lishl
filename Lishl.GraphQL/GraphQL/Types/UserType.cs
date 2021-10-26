@@ -1,5 +1,6 @@
 ﻿using GraphQL.Types;
 using Lishl.Core.Models;
+using Lishl.GraphQL.Cqrs.Queries;
 using MediatR;
 
 namespace Lishl.GraphQL.GraphQL.Types
@@ -18,7 +19,7 @@ namespace Lishl.GraphQL.GraphQL.Types
             Field(u => u.Roles).Description("Roles of the user");
 
             Field<ListGraphType<LinkType>>("links", "Links of the user",
-                resolve: context => mediator.Send(new GetUserLinksQuery(context.Source.Id)));
+                resolve: context => mediator.Send(new GetLinksByUserIdQuery(context.Source.Id)));
         }
     }
 }

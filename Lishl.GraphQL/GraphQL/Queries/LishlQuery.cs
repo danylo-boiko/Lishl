@@ -1,6 +1,7 @@
 ﻿using System;
 using GraphQL;
 using GraphQL.Types;
+using Lishl.GraphQL.Cqrs.Queries;
 using Lishl.GraphQL.GraphQL.Types;
 using MediatR;
 
