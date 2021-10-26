@@ -1,9 +1,18 @@
+using System;
+using GraphQL.Server;
+using GraphQL.Types;
+using Lishl.Core;
+using Lishl.Core.Services;
+using Lishl.GraphQL.GraphQL.Mutations;
+using Lishl.GraphQL.GraphQL.Queries;
+using Lishl.GraphQL.GraphQL.Schemas;
+using Lishl.GraphQL.GraphQL.Types;
+using Lishl.GraphQL.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace Lishl.GraphQL
 {
@@ -18,29 +27,49 @@ namespace Lishl.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddHttpClient(HttpClientNames.UsersClient, client =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lishl.GraphQL", Version = "v1" });
+                client.BaseAddress = new Uri(Configuration.GetConnectionString("UsersService"));
             });
+
+            services.AddHttpClient(HttpClientNames.LinksClient, client =>
+            {
+                client.BaseAddress = new Uri(Configuration.GetConnectionString("LinksService"));
+            });
+
+            
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ILinksService, LinksService>();
+
+            services.AddScoped<LishlQuery>();
+            services.AddScoped<LishlMutation>();
+
+            services.AddScoped<UserType>();
+            services.AddScoped<LinkType>();
+            services.AddScoped<LinkFollowType>();
+            services.AddScoped<UserRoleType>();
+            
+            services.AddScoped<CreateUserType>();
+            services.AddScoped<CreateLinkType>();
+            services.AddScoped<CreateLinkFollowType>();
+
+            services.AddScoped<ISchema, LishlSchema>();
+            
+            services.AddGraphQL(opt =>
+            {
+                opt.EnableMetrics = true;
+            }).AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true).AddSystemTextJson();
+            
+            services.AddMediatR(typeof(Startup));
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lishl.GraphQL v1"));
-            }
-
-            app.UseHttpsRedirection();
-
+            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader());
+            app.UseGraphQL<ISchema>();
+            app.UseGraphQLPlayground();
             app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

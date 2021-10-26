@@ -2,10 +2,10 @@
 using Lishl.Core.Models;
 using MediatR;
 
-namespace Lishl.Users.Api.Cqrs.Queries
+namespace Lishl.GraphQL.Cqrs.Queries
 {
     public record GetUserByIdQuery : IRequest<User>
     {
-        public Guid Id { get; set; }
+        public Guid UserId { get; set; } 
     }
 }

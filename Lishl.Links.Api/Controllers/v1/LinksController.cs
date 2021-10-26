@@ -33,6 +33,14 @@ namespace Lishl.Links.Api.Controllers.v1
             return Ok(response);
         }
 
+        [HttpGet("userId/{userId}")]
+        public async Task<ActionResult<LinkResponse>> GetLinksByUserId([FromRoute] Guid userId, [FromQuery] PaginationFilter paginationFilter)
+        {
+            var links = await _mediator.Send(new GetLinksByUserIdQuery { UserId = userId, PaginationFilter = paginationFilter});
+            var response = _mapper.Map<IEnumerable<LinkResponse>>(links);
+            return Ok(response);
+        }
+        
         [HttpGet("{linkId}")]
         public async Task<ActionResult<LinkResponse>> GetUserById([FromRoute] Guid linkId)
         {

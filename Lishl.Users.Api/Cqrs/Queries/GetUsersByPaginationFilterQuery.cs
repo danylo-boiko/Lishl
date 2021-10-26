@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Lishl.Users.Api.Cqrs.Queries
 {
-    public class GetUsersByPaginationFilterQuery : IRequest<List<User>>
+    public record GetUsersByPaginationFilterQuery : IRequest<IEnumerable<User>>
     {
         public PaginationFilter PaginationFilter { get; set; }
     }
