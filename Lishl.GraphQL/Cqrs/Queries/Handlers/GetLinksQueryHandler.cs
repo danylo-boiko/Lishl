@@ -18,7 +18,7 @@ namespace Lishl.GraphQL.Cqrs.Queries.Handlers
         
         public async Task<IEnumerable<Link>> Handle(GetLinksQuery request, CancellationToken cancellationToken)
         {
-            return await _linksService.Get();
+            return await _linksService.GetAsync();
         }
     }
 }

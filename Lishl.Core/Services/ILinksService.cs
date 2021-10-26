@@ -7,8 +7,8 @@ namespace Lishl.Core.Services
 {
     public interface ILinksService
     {
-        public Task<IEnumerable<Link>> Get();
-        public Task<IEnumerable<Link>> GetLinksByUserId(Guid userId);
-        public Task<Link> Get(Guid linkId);
+        public Task<IEnumerable<Link>> GetAsync();
+        public Task<IEnumerable<Link>> GetLinksByUserIdAsync(Guid userId);
+        public Task<Link> GetAsync(Guid linkId);
     }
 }

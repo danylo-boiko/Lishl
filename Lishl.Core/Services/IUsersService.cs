@@ -7,7 +7,7 @@ namespace Lishl.Core.Services
 {
     public interface IUsersService
     {
-        public Task<IEnumerable<User>> Get();
-        public Task<User> Get(Guid userId);
+        public Task<IEnumerable<User>> GetAsync();
+        public Task<User> GetAsync(Guid userId);
     }
 }

@@ -18,17 +18,17 @@ namespace Lishl.GraphQL.Services
             _client = httpClientFactory.CreateClient(HttpClientNames.LinksClient);
         }
 
-        public Task<IEnumerable<Link>> Get()
+        public Task<IEnumerable<Link>> GetAsync()
         {
             return _client.GetFromJsonAsync<IEnumerable<Link>>("api/v1/links");
         }
 
-        public Task<IEnumerable<Link>> GetLinksByUserId(Guid userId)
+        public Task<IEnumerable<Link>> GetLinksByUserIdAsync(Guid userId)
         {
             return _client.GetFromJsonAsync<IEnumerable<Link>>($"api/v1/links/userId/{userId}");
         }
 
-        public Task<Link> Get(Guid linkId)
+        public Task<Link> GetAsync(Guid linkId)
         {
             return _client.GetFromJsonAsync<Link>($"api/v1/links/{linkId}");
         }
