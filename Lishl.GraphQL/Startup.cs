@@ -49,8 +49,10 @@ namespace Lishl.GraphQL
             services.AddScoped<LinkFollowType>();
             services.AddScoped<UserRoleType>();
             
-            services.AddScoped<UserInputType>();
-            services.AddScoped<LinkInputType>();
+            services.AddScoped<CreateUserType>();
+            services.AddScoped<CreateLinkType>();
+            services.AddScoped<UpdateUserType>();
+            services.AddScoped<UpdateLinkType>();
             services.AddScoped<LinkFollowInputType>();
 
             services.AddScoped<ISchema, LishlSchema>();

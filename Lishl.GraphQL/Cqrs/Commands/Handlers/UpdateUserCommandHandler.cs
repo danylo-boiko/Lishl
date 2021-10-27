@@ -22,7 +22,7 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
             {
                 Username = request.Username,
                 Email = request.Email,
-                Password = request.HashedPassword,
+                Password = request.Password,
                 Roles = request.Roles
             });
         }
