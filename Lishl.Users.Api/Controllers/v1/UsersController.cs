@@ -16,7 +16,7 @@ namespace Lishl.Users.Api.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UsersController: ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
         private IPasswordHasher<User> _passwordHasher;
@@ -62,14 +62,15 @@ namespace Lishl.Users.Api.Controllers.v1
                 HashedPassword = _passwordHasher.HashPassword(new User(), createUserRequest.Password),
                 Roles = createUserRequest.Roles,
             });
-            
+
             var response = _mapper.Map<UserResponse>(user);
 
             return Ok(response);
         }
-        
+
         [HttpPut("{userId}")]
-        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
+        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId,
+            [FromBody] UpdateUserRequest updateUserRequest)
         {
             if (updateUserRequest == null)
             {
@@ -88,14 +89,14 @@ namespace Lishl.Users.Api.Controllers.v1
             {
                 updateUserCommand.HashedPassword = _passwordHasher.HashPassword(new User(), updateUserRequest.Password);
             }
-            
+
             var user = await _mediator.Send(updateUserCommand);
 
             var response = _mapper.Map<UserResponse>(user);
 
             return Ok(response);
         }
-        
+
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
         {
@@ -106,7 +107,7 @@ namespace Lishl.Users.Api.Controllers.v1
                 return BadRequest($"User with id {userId} not found.");
             }
 
-            await _mediator.Send(new DeleteUserCommand{Id = userId});
+            await _mediator.Send(new DeleteUserCommand { Id = userId });
 
             return Ok();
         }

@@ -9,6 +9,7 @@ namespace Lishl.GraphQL.GraphQL.Types
         {
             Name = "userRole";
             Description = "User access role";
+            
             AddValue("default","Default access", UserRole.Default);
             AddValue("moderator","Moderator access", UserRole.Moderator);
             AddValue("admin","Admin access", UserRole.Admin);
