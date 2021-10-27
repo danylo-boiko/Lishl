@@ -1,5 +1,4 @@
 ﻿using GraphQL.Types;
-using Lishl.Core.Enums;
 using Lishl.Core.Models;
 using Lishl.GraphQL.Cqrs.Queries;
 using MediatR;

@@ -4,9 +4,9 @@ using Lishl.Core.Models;
 
 namespace Lishl.GraphQL.GraphQL.Types
 {
-    public sealed class CreateUserType : InputObjectGraphType<User>
+    public sealed class UserInputType : InputObjectGraphType<User>
     {
-        public CreateUserType()
+        public UserInputType()
         {
             Field(u => u.Username).Description("Username of the user");
             Field(u => u.Email).Description("Email of the user");

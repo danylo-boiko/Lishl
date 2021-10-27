@@ -3,9 +3,9 @@ using Lishl.Core.Models;
 
 namespace Lishl.GraphQL.GraphQL.Types
 {
-    public sealed class CreateLinkType : InputObjectGraphType<Link>
+    public sealed class LinkInputType : InputObjectGraphType<Link>
     {
-        public CreateLinkType()
+        public LinkInputType()
         {
             Field(l => l.UserId).Description("Id of stored user");
             Field(l => l.FullUrl).Description("Full url");

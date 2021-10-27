@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Lishl.Core;
+using Lishl.Core.GraphQL.Requests;
 using Lishl.Core.Models;
 using Lishl.Core.Services;
 
@@ -23,9 +24,36 @@ namespace Lishl.GraphQL.Services
             return _client.GetFromJsonAsync<IEnumerable<User>>("api/v1/users");
         }
 
-        public Task<User> GetAsync(Guid userId)
+        public async Task<User> GetAsync(Guid userId)
         {
-            return _client.GetFromJsonAsync<User>($"api/v1/users/{userId}");
+            var response = await _client.GetAsync($"api/v1/users/{userId}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<User>();
+            }
+
+            return null;
+        }
+
+        public async Task<User> CreateAsync(CreateUserRequest createUserRequest)
+        {
+            var response = await _client.PostAsJsonAsync("api/v1/users", createUserRequest);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<User>();
+        }
+
+        public async Task UpdateAsync(UpdateUserRequest updateUserRequest)
+        {
+            var response = await _client.PutAsJsonAsync("api/v1/users", updateUserRequest);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteAsync(Guid userId)
+        {
+            var response = await _client.DeleteAsync($"api/v1/users/{userId}");
+            response.EnsureSuccessStatusCode();
         }
     }
 }
