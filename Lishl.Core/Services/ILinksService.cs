@@ -12,7 +12,7 @@ namespace Lishl.Core.Services
         public Task<IEnumerable<Link>> GetLinksByUserIdAsync(Guid userId);
         public Task<Link> GetAsync(Guid linkId);
         public Task<Link> CreateAsync(CreateLinkRequest createLinkRequest);
-        public Task UpdateAsync(UpdateLinkRequest updateLinkRequest);
+        public Task<Link> UpdateAsync(Guid linkId, UpdateLinkRequest updateLinkRequest);
         public Task DeleteAsync(Guid linkId);
     }
 }

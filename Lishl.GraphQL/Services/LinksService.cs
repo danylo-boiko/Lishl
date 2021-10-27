@@ -49,10 +49,12 @@ namespace Lishl.GraphQL.Services
             return await response.Content.ReadFromJsonAsync<Link>();
         }
 
-        public async Task UpdateAsync(UpdateLinkRequest updateLinkRequest)
+        public async Task<Link> UpdateAsync(Guid linkId, UpdateLinkRequest updateLinkRequest)
         {
-            var response = await _client.PutAsJsonAsync("api/v1/links", updateLinkRequest);
+            var response = await _client.PutAsJsonAsync($"api/v1/links/{linkId}", updateLinkRequest);
             response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<Link>();
         }
 
         public async Task DeleteAsync(Guid linkId)
