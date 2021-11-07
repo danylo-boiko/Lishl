@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphQL;
 using GraphQL.Types;
-using Lishl.Core.GraphQL.Requests;
+using Lishl.Core.Requests;
 using Lishl.GraphQL.Cqrs.Commands;
 using Lishl.GraphQL.Cqrs.Queries;
 using Lishl.GraphQL.GraphQL.Types;

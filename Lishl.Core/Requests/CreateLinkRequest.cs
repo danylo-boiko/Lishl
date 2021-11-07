@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Lishl.Core.GraphQL.Requests
+namespace Lishl.Core.Requests
 {
     public class CreateLinkRequest
     {

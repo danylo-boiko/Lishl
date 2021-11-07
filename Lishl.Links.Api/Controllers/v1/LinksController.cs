@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core;
+using Lishl.Core.Requests;
 using Lishl.Links.Api.Cqrs.Commands;
 using Lishl.Links.Api.Cqrs.Queries;
-using Lishl.Links.Api.Requests;
 using Lishl.Links.Api.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,23 +28,37 @@ namespace Lishl.Links.Api.Controllers.v1
         [HttpGet]
         public async Task<ActionResult<LinkResponse>> Get([FromQuery] PaginationFilter paginationFilter)
         {
-            var links = await _mediator.Send(new GetLinksByPaginationFilterQuery { PaginationFilter = paginationFilter });
+            var links = await _mediator.Send(new GetLinksByPaginationFilterQuery
+            {
+                PaginationFilter = paginationFilter
+            });
+            
             var response = _mapper.Map<IEnumerable<LinkResponse>>(links);
+            
             return Ok(response);
         }
 
         [HttpGet("userId/{userId}")]
         public async Task<ActionResult<LinkResponse>> GetLinksByUserId([FromRoute] Guid userId, [FromQuery] PaginationFilter paginationFilter)
         {
-            var links = await _mediator.Send(new GetLinksByUserIdQuery { UserId = userId, PaginationFilter = paginationFilter});
+            var links = await _mediator.Send(new GetLinksByUserIdQuery
+            {
+                UserId = userId,
+                PaginationFilter = paginationFilter
+            });
+            
             var response = _mapper.Map<IEnumerable<LinkResponse>>(links);
+            
             return Ok(response);
         }
         
         [HttpGet("{linkId}")]
         public async Task<ActionResult<LinkResponse>> GetUserById([FromRoute] Guid linkId)
         {
-            var storedLink = await _mediator.Send(new GetLinkByIdQuery { Id = linkId });
+            var storedLink = await _mediator.Send(new GetLinkByIdQuery
+            {
+                Id = linkId
+            });
 
             if (storedLink == null)
             {
@@ -59,12 +73,12 @@ namespace Lishl.Links.Api.Controllers.v1
         [HttpPost]
         public async Task<ActionResult<LinkResponse>> Create([FromBody] CreateLinkRequest createLinkRequest)
         {
-            var link = await _mediator.Send(new CreateLinkCommand
+            if (createLinkRequest == null)
             {
-                UserId = createLinkRequest.UserId,
-                FullUrl = createLinkRequest.FullUrl,
-                ShortUrl = createLinkRequest.ShortUrl
-            });
+                return BadRequest("Request body is empty.");
+            }
+            
+            var link = await _mediator.Send(_mapper.Map<CreateLinkCommand>(createLinkRequest));
             
             var response = _mapper.Map<LinkResponse>(link);
 
@@ -79,15 +93,11 @@ namespace Lishl.Links.Api.Controllers.v1
                 return BadRequest("Request body is empty.");
             }
 
-            var link = await _mediator.Send(new UpdateLinkCommand
-            {
-                Id = linkId,
-                UserId = updateLinkRequest.UserId,
-                FullUrl = updateLinkRequest.FullUrl,
-                ShortUrl = updateLinkRequest.ShortUrl,
-                Follows = updateLinkRequest.Follows
-            });
-
+            var updateLinkCommand = _mapper.Map<UpdateLinkCommand>(updateLinkRequest);
+            updateLinkCommand.Id = linkId;
+            
+            var link = await _mediator.Send(updateLinkCommand);
+            
             var response = _mapper.Map<LinkResponse>(link);
 
             return Ok(response);

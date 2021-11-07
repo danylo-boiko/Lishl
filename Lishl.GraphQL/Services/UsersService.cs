@@ -4,8 +4,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Lishl.Core;
-using Lishl.Core.GraphQL.Requests;
 using Lishl.Core.Models;
+using Lishl.Core.Requests;
 using Lishl.Core.Services;
 
 namespace Lishl.GraphQL.Services

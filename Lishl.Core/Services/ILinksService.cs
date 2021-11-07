@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Lishl.Core.GraphQL.Requests;
 using Lishl.Core.Models;
+using Lishl.Core.Requests;
 
 namespace Lishl.Core.Services
 {

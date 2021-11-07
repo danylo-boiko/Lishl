@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Lishl.Core.Enums;
 
-namespace Lishl.Core.GraphQL.Requests
+namespace Lishl.Core.Requests
 {
     public class CreateUserRequest
     {
@@ -14,6 +14,7 @@ namespace Lishl.Core.GraphQL.Requests
         [Required]
         public string Password { get; set; }
         
+        [Required]
         public UserRole[] Roles { get; set; }
     }
 }
