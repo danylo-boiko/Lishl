@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Lishl.Core.Models;
-using Lishl.Links.Api.Requests;
+using Lishl.Core.Requests;
 using Lishl.Links.Api.Responses;
 
 namespace Lishl.Links.Api

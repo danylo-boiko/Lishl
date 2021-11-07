@@ -1,5 +1,5 @@
 ﻿using GraphQL.Types;
-using Lishl.Core.GraphQL.Requests;
+using Lishl.Core.Requests;
 
 namespace Lishl.GraphQL.GraphQL.Types
 {

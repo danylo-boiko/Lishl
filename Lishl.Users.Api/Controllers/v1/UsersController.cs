@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core;
 using Lishl.Core.Models;
+using Lishl.Core.Requests;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
-using Lishl.Users.Api.Requests;
 using Lishl.Users.Api.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -69,8 +69,7 @@ namespace Lishl.Users.Api.Controllers.v1
         }
 
         [HttpPut("{userId}")]
-        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId,
-            [FromBody] UpdateUserRequest updateUserRequest)
+        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
         {
             if (updateUserRequest == null)
             {

@@ -1,6 +1,6 @@
 ﻿using Lishl.Core.Enums;
 
-namespace Lishl.Core.GraphQL.Requests
+namespace Lishl.Core.Requests
 {
     public class UpdateUserRequest
     {

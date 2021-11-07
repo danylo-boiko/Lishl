@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Lishl.Core.Models;
 
-namespace Lishl.Links.Api.Requests
+namespace Lishl.Core.Requests
 {
     public class UpdateLinkRequest
     {
