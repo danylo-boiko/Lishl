@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using MediatR;
@@ -9,22 +10,17 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
     {
         private readonly IUsersRepository _usersRepository;
+        private readonly IMapper _mapper;
 
-        public UpdateUserCommandHandler(IUsersRepository usersRepository)
+        public UpdateUserCommandHandler(IUsersRepository usersRepository, IMapper mapper)
         {
             _usersRepository = usersRepository;
+            _mapper = mapper;
         }
 
         public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User
-            {
-                Id = request.Id,
-                Username = request.Username,
-                Email = request.Email,
-                HashedPassword = request.HashedPassword,
-                Roles = request.Roles
-            };
+            var user = _mapper.Map<User>(request);
 
             await _usersRepository.UpdateAsync(user);
             

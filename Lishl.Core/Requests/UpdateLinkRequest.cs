@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Lishl.Core.Models;
 
 namespace Lishl.Core.Requests
 {
-    public class UpdateLinkRequest
+    public class UpdateLinkRequest: CreateLinkRequest
     {
-        public Guid UserId { get; set; }
-        public string FullUrl { get; set; }
-        public string ShortUrl { get; set; }
+        [Required]
         public IEnumerable<LinkFollow> Follows { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Lishl.Core.Requests
         [Required]
         public string Password { get; set; }
         
+        [Required]
         public UserRole[] Roles { get; set; }
     }
 }
