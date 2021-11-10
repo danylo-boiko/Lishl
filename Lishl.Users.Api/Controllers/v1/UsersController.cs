@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core;
-using Lishl.Core.Models;
 using Lishl.Core.Requests;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
 using Lishl.Users.Api.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Users.Api.Controllers.v1

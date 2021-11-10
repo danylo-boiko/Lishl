@@ -1,4 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Lishl.Core.Repositories;
+using Lishl.Core.Requests;
+using Lishl.Core.Validators;
 using Lishl.Infrastructure.MongoDb;
 using Lishl.Infrastructure.MongoDb.Repositories;
 using MediatR;
@@ -26,6 +30,10 @@ namespace Lishl.Links.Api
 
             services.AddScoped<ILinksRepository, LinksRepository>();
 
+            services.AddFluentValidation();
+            services.AddTransient<IValidator<CreateLinkRequest>, CreateLinkRequestValidator>();
+            services.AddTransient<IValidator<UpdateLinkRequest>, UpdateLinkRequestValidator>();
+            
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             services.AddMediatR(typeof(Startup));

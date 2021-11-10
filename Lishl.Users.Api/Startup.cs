@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
+using Lishl.Core.Requests;
+using Lishl.Core.Validators;
 using Lishl.Infrastructure.PostgreSql;
 using Lishl.Infrastructure.PostgreSql.Repositories;
 using MediatR;
@@ -29,13 +33,17 @@ namespace Lishl.Users.Api
             services.AddScoped<IUsersRepository, UsersRepository>();
             
             services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
-            
+
+            services.AddFluentValidation();
+            services.AddTransient<IValidator<CreateUserRequest>, CreateUserRequestValidator>();
+            services.AddTransient<IValidator<UpdateUserRequest>, UpdateUserRequestValidator>();
+
             services.AddAutoMapper(typeof(Startup).Assembly);
             
             services.AddMediatR(typeof(Startup));
             
             services.AddControllers();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lishl.Users.Api", Version = "v1" });

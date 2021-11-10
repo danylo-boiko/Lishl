@@ -36,7 +36,6 @@ namespace Lishl.GraphQL
             {
                 client.BaseAddress = new Uri(Configuration.GetConnectionString("LinksService"));
             });
-
             
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ILinksService, LinksService>();
@@ -56,7 +55,7 @@ namespace Lishl.GraphQL
             services.AddScoped<LinkFollowInputType>();
 
             services.AddScoped<ISchema, LishlSchema>();
-            
+
             services.AddGraphQL(opt =>
             {
                 opt.EnableMetrics = true;

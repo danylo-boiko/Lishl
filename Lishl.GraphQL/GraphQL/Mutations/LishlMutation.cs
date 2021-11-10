@@ -20,7 +20,7 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                 resolve: context =>
                 {
                     var userRequest = context.GetArgument<CreateUserRequest>("user");
-                    
+
                     return mediator.Send(new CreateUserCommand
                     {
                         Username = userRequest.Username,
