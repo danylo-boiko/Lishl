@@ -28,12 +28,12 @@ namespace Lishl.Links.Api.Controllers.v1
         [HttpGet]
         public async Task<ActionResult<LinkResponse>> Get([FromQuery] PaginationFilter paginationFilter)
         {
-            var links = await _mediator.Send(new GetLinksByPaginationFilterQuery
+            var storedLinks = await _mediator.Send(new GetLinksByPaginationFilterQuery
             {
                 PaginationFilter = paginationFilter
             });
             
-            var response = _mapper.Map<IEnumerable<LinkResponse>>(links);
+            var response = _mapper.Map<IEnumerable<LinkResponse>>(storedLinks);
             
             return Ok(response);
         }
@@ -41,28 +41,25 @@ namespace Lishl.Links.Api.Controllers.v1
         [HttpGet("userId/{userId}")]
         public async Task<ActionResult<LinkResponse>> GetLinksByUserId([FromRoute] Guid userId, [FromQuery] PaginationFilter paginationFilter)
         {
-            var links = await _mediator.Send(new GetLinksByUserIdQuery
+            var storedLinks = await _mediator.Send(new GetLinksByUserIdQuery
             {
                 UserId = userId,
                 PaginationFilter = paginationFilter
             });
             
-            var response = _mapper.Map<IEnumerable<LinkResponse>>(links);
+            var response = _mapper.Map<IEnumerable<LinkResponse>>(storedLinks);
             
             return Ok(response);
         }
         
-        [HttpGet("{linkId}")]
-        public async Task<ActionResult<LinkResponse>> GetUserById([FromRoute] Guid linkId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<LinkResponse>> Get([FromRoute] Guid id)
         {
-            var storedLink = await _mediator.Send(new GetLinkByIdQuery
-            {
-                Id = linkId
-            });
+            var storedLink = await _mediator.Send(new GetLinkByIdQuery { Id = id });
 
             if (storedLink == null)
             {
-                return BadRequest($"Link with id {linkId} not found.");
+                return BadRequest($"Link with id {id} not found.");
             }
 
             var response = _mapper.Map<LinkResponse>(storedLink);
@@ -78,9 +75,9 @@ namespace Lishl.Links.Api.Controllers.v1
                 return BadRequest("Request body is empty.");
             }
             
-            var link = await _mediator.Send(_mapper.Map<CreateLinkCommand>(createLinkRequest));
+            var createdLink = await _mediator.Send(_mapper.Map<CreateLinkCommand>(createLinkRequest));
             
-            var response = _mapper.Map<LinkResponse>(link);
+            var response = _mapper.Map<LinkResponse>(createdLink);
 
             return Ok(response);
         }
@@ -96,24 +93,24 @@ namespace Lishl.Links.Api.Controllers.v1
             var updateLinkCommand = _mapper.Map<UpdateLinkCommand>(updateLinkRequest);
             updateLinkCommand.Id = linkId;
             
-            var link = await _mediator.Send(updateLinkCommand);
+            var updatedLink = await _mediator.Send(updateLinkCommand);
             
-            var response = _mapper.Map<LinkResponse>(link);
+            var response = _mapper.Map<LinkResponse>(updatedLink);
 
             return Ok(response);
         }
         
-        [HttpDelete("{linkId}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] Guid linkId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
         {
-            var storedLink = await _mediator.Send(new GetLinkByIdQuery { Id = linkId });
+            var storedLink = await _mediator.Send(new GetLinkByIdQuery { Id = id });
 
             if (storedLink == null)
             {
-                return BadRequest($"Link with id {linkId} not found.");
+                return BadRequest($"Link with id {id} not found.");
             }
 
-            await _mediator.Send(new DeleteLinkCommand{Id = linkId});
+            await _mediator.Send(new DeleteLinkCommand{Id = id});
 
             return Ok();
         }

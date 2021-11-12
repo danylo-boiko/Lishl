@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Lishl.Core.Enums;
 using Lishl.Core.Requests;
 
 namespace Lishl.Core.Validators
@@ -14,7 +15,7 @@ namespace Lishl.Core.Validators
             RuleFor(user => user.Email)
                 .NotEmpty()
                 .EmailAddress();
-            RuleFor(registerRequest => registerRequest.Roles)
+            RuleForEach(registerRequest => registerRequest.Roles)
                 .IsInEnum();
             RuleFor(user => user.Password)
                 .NotEmpty()
