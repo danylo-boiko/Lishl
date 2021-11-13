@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core;
-using Lishl.Core.Models;
 using Lishl.Core.Requests;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
 using Lishl.Users.Api.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Users.Api.Controllers.v1
@@ -30,24 +28,24 @@ namespace Lishl.Users.Api.Controllers.v1
         [HttpGet]
         public async Task<ActionResult<UserResponse>> Get([FromQuery] PaginationFilter paginationFilter)
         {
-            var users = await _mediator.Send(new GetUsersByPaginationFilterQuery
+            var storedUsers = await _mediator.Send(new GetUsersByPaginationFilterQuery
             {
                 PaginationFilter = paginationFilter
             });
             
-            var response = _mapper.Map<IEnumerable<UserResponse>>(users);
+            var response = _mapper.Map<IEnumerable<UserResponse>>(storedUsers);
             
             return Ok(response);
         }
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<UserResponse>> GetUserById([FromRoute] Guid userId)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserResponse>> GetUserById([FromRoute] Guid id)
         {
-            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = id });
 
             if (storedUser == null)
             {
-                return BadRequest($"User with id {userId} not found.");
+                return BadRequest($"User with id {id} not found.");
             }
 
             var response = _mapper.Map<UserResponse>(storedUser);
@@ -63,39 +61,42 @@ namespace Lishl.Users.Api.Controllers.v1
                 return BadRequest("Request body is empty.");
             }
             
-            var user = await _mediator.Send(_mapper.Map<CreateUserCommand>(createUserRequest));
+            var createdUser = await _mediator.Send(_mapper.Map<CreateUserCommand>(createUserRequest));
 
-            var response = _mapper.Map<UserResponse>(user);
+            var response = _mapper.Map<UserResponse>(createdUser);
 
             return Ok(response);
         }
 
-        [HttpPut("{userId}")]
-        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid userId, [FromBody] UpdateUserRequest updateUserRequest)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {
             if (updateUserRequest == null)
             {
                 return BadRequest("Request body is empty.");
             }
 
-            var user = await _mediator.Send(_mapper.Map<UpdateUserCommand>(updateUserRequest));
+            var updateUserCommand = _mapper.Map<UpdateUserCommand>(updateUserRequest);
+            updateUserCommand.Id = id;
+            
+            var updatedUser = await _mediator.Send(updateUserCommand);
 
-            var response = _mapper.Map<UserResponse>(user);
+            var response = _mapper.Map<UserResponse>(updatedUser);
 
             return Ok(response);
         }
 
-        [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
         {
-            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = userId });
+            var storedUser = await _mediator.Send(new GetUserByIdQuery { Id = id });
 
             if (storedUser == null)
             {
-                return BadRequest($"User with id {userId} not found.");
+                return BadRequest($"User with id {id} not found.");
             }
 
-            await _mediator.Send(new DeleteUserCommand { Id = userId });
+            await _mediator.Send(new DeleteUserCommand { Id = id });
 
             return Ok();
         }

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Lishl.Users.Api.Cqrs.Commands
 {
-    public record UpdateUserCommand: IRequest<User>
+    public record UpdateUserCommand : IRequest<User>
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

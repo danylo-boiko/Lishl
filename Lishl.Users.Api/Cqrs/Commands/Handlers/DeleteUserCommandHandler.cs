@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Lishl.Users.Api.Cqrs.Commands.Handlers
 {
-    public class DeleteUserCommandHandler: AsyncRequestHandler<DeleteUserCommand>
+    public class DeleteUserCommandHandler : AsyncRequestHandler<DeleteUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
 
