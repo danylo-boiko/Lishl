@@ -10,8 +10,5 @@ namespace Lishl.Core.Requests
         
         [Required]
         public string FullUrl { get; set; }
-        
-        [Required]
-        public string ShortUrl { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Lishl.Infrastructure.MongoDb.Repositories
 
         public Task<T1> CreateAsync(T1 entity)
         {
-            _сollection.InsertOne(entity);
+            _сollection.InsertOneAsync(entity);
             return _сollection.Find(obj => obj.Id.Equals(entity.Id)).FirstOrDefaultAsync();
         }
 

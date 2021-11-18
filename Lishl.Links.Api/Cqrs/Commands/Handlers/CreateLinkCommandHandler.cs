@@ -1,9 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Lishl.Links.Api.Cqrs.Commands.Handlers
 {
@@ -22,9 +24,10 @@ namespace Lishl.Links.Api.Cqrs.Commands.Handlers
         {
             var link = _mapper.Map<Link>(request);
 
-            await _linksRepository.CreateAsync(link);
+            link.Id = Guid.NewGuid();
+            link.ShortUrl = WebEncoders.Base64UrlEncode(link.Id.ToByteArray());
             
-            return await _linksRepository.GetAsync(link.Id);
+            return await _linksRepository.CreateAsync(link);
         }
     }
 }

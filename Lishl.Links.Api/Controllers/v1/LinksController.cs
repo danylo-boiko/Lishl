@@ -82,16 +82,30 @@ namespace Lishl.Links.Api.Controllers.v1
             return Ok(response);
         }
         
-        [HttpPut("{linkId}")]
-        public async Task<ActionResult<LinkResponse>> UpdateUser([FromRoute] Guid linkId, [FromBody] UpdateLinkRequest updateLinkRequest)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<LinkResponse>> Update([FromRoute] Guid id, [FromBody] UpdateLinkRequest updateLinkRequest)
         {
             if (updateLinkRequest == null)
             {
                 return BadRequest("Request body is empty.");
             }
 
+            var storedLinkById = await _mediator.Send(new GetLinkByIdQuery { Id = id });
+
+            if (storedLinkById == null)
+            {
+                return BadRequest($"Link with id {id} not found.");
+            }
+            
+            var storedLinkByShortUrl = await _mediator.Send(new GetLinkByShortUrlQuery { ShortUrl = updateLinkRequest.ShortUrl });
+
+            if (storedLinkByShortUrl != null && id != storedLinkByShortUrl.Id)
+            {
+                return BadRequest($"Link with short url {updateLinkRequest.ShortUrl} already exist.");
+            }
+            
             var updateLinkCommand = _mapper.Map<UpdateLinkCommand>(updateLinkRequest);
-            updateLinkCommand.Id = linkId;
+            updateLinkCommand.Id = id;
             
             var updatedLink = await _mediator.Send(updateLinkCommand);
             
@@ -101,7 +115,7 @@ namespace Lishl.Links.Api.Controllers.v1
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var storedLink = await _mediator.Send(new GetLinkByIdQuery { Id = id });
 
@@ -112,7 +126,7 @@ namespace Lishl.Links.Api.Controllers.v1
 
             await _mediator.Send(new DeleteLinkCommand{Id = id});
 
-            return Ok();
+            return Ok($"Link with id {id} has been successfully deleted.");
         }
     }
 }

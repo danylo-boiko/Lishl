@@ -17,7 +17,7 @@ namespace Lishl.Infrastructure.PostgreSql.Repositories
 
         public Task<User> GetByEmailAsync(string email)
         {
-            return _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+            return _context.Users.FirstOrDefaultAsync(user => user.Email.Equals(email));
         }
     }
 }

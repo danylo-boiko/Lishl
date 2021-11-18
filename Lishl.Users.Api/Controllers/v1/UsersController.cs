@@ -119,7 +119,7 @@ namespace Lishl.Users.Api.Controllers.v1
 
             await _mediator.Send(new DeleteUserCommand { Id = id });
 
-            return Ok();
+            return Ok($"User with id {id} has been successfully deleted.");
         }
     }
 }

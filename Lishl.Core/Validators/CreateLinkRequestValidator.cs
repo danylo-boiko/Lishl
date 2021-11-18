@@ -13,9 +13,6 @@ namespace Lishl.Core.Validators
             RuleFor(link => link.FullUrl)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(link => link.ShortUrl)
-                .NotNull()
-                .NotEmpty();
         }
     }
 }
