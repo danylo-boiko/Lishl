@@ -7,7 +7,8 @@ namespace Lishl.Infrastructure.PostgreSql
     {
         public static IServiceCollection AddPostgreSql(this IServiceCollection services, string connection)
         {
-            services.AddDbContext<PostgreSqlDbContext>(opt => opt.UseNpgsql(connection));
+            services.AddDbContext<PostgreSqlDbContext>(opt => 
+                opt.UseNpgsql(connection, builder => builder.MigrationsAssembly("Lishl.Users.Api")));
             return services;
         }
     }

@@ -7,7 +7,7 @@ namespace Lishl.Infrastructure.MongoDb
     {
         public static IServiceCollection AddMongoDb(this IServiceCollection services, string connection)
         {
-            services.AddScoped<IMongoDatabase>(_ => 
+            services.AddScoped<IMongoDatabase>( _ => 
                 {
                     var client = new MongoClient(connection);
                     return client.GetDatabase("LinksService");
