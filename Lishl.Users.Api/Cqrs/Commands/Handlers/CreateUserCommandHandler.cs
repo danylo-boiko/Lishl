@@ -22,9 +22,7 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
         {
             var user = _mapper.Map<User>(request);
 
-            await _usersRepository.CreateAsync(user);
-            
-            return await _usersRepository.GetAsync(user.Id);
+            return await _usersRepository.CreateAsync(user);
         }
     }
 }
