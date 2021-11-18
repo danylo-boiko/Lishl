@@ -11,7 +11,6 @@ namespace Lishl.GraphQL.GraphQL.Types
             Field(u => u.Email).Description("Email of the user");
             Field(u => u.Password).Description("Password of the user");
             Field<ListGraphType<UserRoleType>>("roles","Roles of the user", resolve: u => u.Source.Roles);
-
         }
     }
 }

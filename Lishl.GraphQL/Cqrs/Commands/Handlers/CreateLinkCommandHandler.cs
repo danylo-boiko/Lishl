@@ -21,8 +21,7 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
             return await _linksService.CreateAsync(new CreateLinkRequest
             {
                 UserId = request.UserId,
-                FullUrl = request.FullUrl,
-                ShortUrl = request.ShortUrl
+                FullUrl = request.FullUrl
             });
         }
     }

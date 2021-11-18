@@ -47,7 +47,6 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                     {
                         UserId = linkRequest.UserId,
                         FullUrl = linkRequest.FullUrl,
-                        ShortUrl = linkRequest.ShortUrl
                     });
                 });
             

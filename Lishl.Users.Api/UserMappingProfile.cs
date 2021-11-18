@@ -19,11 +19,11 @@ namespace Lishl.Users.Api
             CreateMap<CreateUserRequest, CreateUserCommand>().ForMember(u => u.HashedPassword, cu =>
             {
                 cu.MapFrom(c => passwordHasher.HashPassword(new User(), c.Password));
-            });;
+            });
             CreateMap<UpdateUserRequest, UpdateUserCommand>().ForMember(u => u.HashedPassword, cu =>
             {
                 cu.MapFrom(c => passwordHasher.HashPassword(new User(), c.Password));
-            });;
+            });
         }
     }
 }
