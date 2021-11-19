@@ -15,11 +15,11 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
             _linksService = linksService;
         }
         
-        public async Task<Guid> Handle(DeleteLinkCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(DeleteLinkCommand command, CancellationToken cancellationToken)
         {
-            await _linksService.DeleteAsync(request.LinkId);
+            await _linksService.DeleteAsync(command.LinkId);
 
-            return request.LinkId;
+            return command.LinkId;
         }
     }
 }

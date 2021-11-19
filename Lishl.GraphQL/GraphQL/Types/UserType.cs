@@ -1,6 +1,7 @@
 ﻿using GraphQL.Types;
 using Lishl.Core.Models;
 using Lishl.GraphQL.Cqrs.Queries;
+using Lishl.GraphQL.Cqrs.Queries.Handlers;
 using MediatR;
 
 namespace Lishl.GraphQL.GraphQL.Types
@@ -18,6 +19,11 @@ namespace Lishl.GraphQL.GraphQL.Types
             Field<ListGraphType<UserRoleType>>("roles","Roles of the user", resolve: u => u.Source.Roles);
             
             FieldAsync<ListGraphType<LinkType>>("links", "Links of the user", resolve: async context => await mediator.Send(new GetLinksByUserIdQuery
+            {
+                UserId = context.Source.Id
+            }));
+            
+            FieldAsync<ListGraphType<QRCodeType>>("qrcodes", "QR codes of the user", resolve: async context => await mediator.Send(new GetQRCodesByUserIdQuery
             {
                 UserId = context.Source.Id
             }));

@@ -44,9 +44,26 @@ namespace Lishl.GraphQL.GraphQL.Queries
                         return null;
                     }
                 });
+            
+            FieldAsync<QRCodeType>("qrcode", 
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "Id of the qr code" }),
+                resolve: async context =>
+                {
+                    try
+                    {
+                        var qrCodeId = context.GetArgument<Guid>("id");
+                        return await mediator.Send(new GetQRCodeByIdQuery { QRCodeId = qrCodeId });
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
+                        return null;
+                    }
+                });
 
             Field<ListGraphType<UserType>>("users", resolve: _ => mediator.Send(new GetUsersQuery()));
             Field<ListGraphType<LinkType>>("links", resolve: _ => mediator.Send(new GetLinksQuery()));
+            Field<ListGraphType<QRCodeType>>("qrcodes", resolve: _ => mediator.Send(new GetQRCodesQuery()));
         }
     }
 }

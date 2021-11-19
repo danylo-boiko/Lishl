@@ -26,22 +26,32 @@ builder.Services.AddHttpClient(HttpClientNames.LinksClient, client =>
     client.BaseAddress = new Uri(builder.Configuration.GetConnectionString("LinksService"));
 });
 
+builder.Services.AddHttpClient(HttpClientNames.QRCodesClient, client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration.GetConnectionString("QRCodesService"));
+});
 
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ILinksService, LinksService>();
+builder.Services.AddScoped<IQRCodesService, QRCodesService>();
 
 builder.Services.AddScoped<LishlQuery>();
 builder.Services.AddScoped<LishlMutation>();
 
 builder.Services.AddScoped<UserType>();
 builder.Services.AddScoped<LinkType>();
+builder.Services.AddScoped<QRCodeType>();
 builder.Services.AddScoped<LinkFollowType>();
 builder.Services.AddScoped<UserRoleType>();
             
 builder.Services.AddScoped<CreateUserType>();
 builder.Services.AddScoped<CreateLinkType>();
+builder.Services.AddScoped<CreateQRCodeType>();
+
 builder.Services.AddScoped<UpdateUserType>();
 builder.Services.AddScoped<UpdateLinkType>();
+builder.Services.AddScoped<UpdateQRCodeType>();
+
 builder.Services.AddScoped<LinkFollowInputType>();
 
 builder.Services.AddScoped<ISchema, LishlSchema>();

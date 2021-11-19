@@ -14,6 +14,7 @@ namespace Lishl.GraphQL.Services
     public class UsersService : IUsersService
     {
         private readonly HttpClient _client;
+        private const string BaseUrl = "api/v1/users";
         
         public UsersService(IHttpClientFactory httpClientFactory)
         {
@@ -22,12 +23,12 @@ namespace Lishl.GraphQL.Services
 
         public Task<IEnumerable<User>> GetAsync()
         {
-            return _client.GetFromJsonAsync<IEnumerable<User>>("api/v1/users");
+            return _client.GetFromJsonAsync<IEnumerable<User>>(BaseUrl);
         }
 
         public async Task<User> GetAsync(Guid userId)
         {
-            var response = await _client.GetAsync($"api/v1/users/{userId}");
+            var response = await _client.GetAsync($"{BaseUrl}/{userId}");
             
             if (response.IsSuccessStatusCode)
             {
@@ -39,7 +40,7 @@ namespace Lishl.GraphQL.Services
 
         public async Task<User> CreateAsync(CreateUserRequest createUserRequest)
         {
-            var response = await _client.PostAsJsonAsync("api/v1/users", createUserRequest);
+            var response = await _client.PostAsJsonAsync(BaseUrl, createUserRequest);
             
             if (response.IsSuccessStatusCode)
             {
@@ -51,7 +52,7 @@ namespace Lishl.GraphQL.Services
 
         public async Task<User> UpdateAsync(Guid userId, UpdateUserRequest updateUserRequest)
         {
-            var response = await _client.PutAsJsonAsync($"api/v1/users/{userId}", updateUserRequest);
+            var response = await _client.PutAsJsonAsync($"{BaseUrl}/{userId}", updateUserRequest);
             
             if (response.IsSuccessStatusCode)
             {
@@ -63,7 +64,7 @@ namespace Lishl.GraphQL.Services
 
         public async Task DeleteAsync(Guid userId)
         {
-            var response = await _client.DeleteAsync($"api/v1/users/{userId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}/{userId}");
             response.EnsureSuccessStatusCode();
         }
     }
