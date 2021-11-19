@@ -27,34 +27,7 @@ namespace Lishl.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient(HttpClientNames.UsersClient, client =>
-            {
-                client.BaseAddress = new Uri(Configuration.GetConnectionString("UsersService"));
-            });
-
-            services.AddHttpClient(HttpClientNames.LinksClient, client =>
-            {
-                client.BaseAddress = new Uri(Configuration.GetConnectionString("LinksService"));
-            });
             
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<ILinksService, LinksService>();
-
-            services.AddScoped<LishlQuery>();
-            services.AddScoped<LishlMutation>();
-
-            services.AddScoped<UserType>();
-            services.AddScoped<LinkType>();
-            services.AddScoped<LinkFollowType>();
-            services.AddScoped<UserRoleType>();
-            
-            services.AddScoped<CreateUserType>();
-            services.AddScoped<CreateLinkType>();
-            services.AddScoped<UpdateUserType>();
-            services.AddScoped<UpdateLinkType>();
-            services.AddScoped<LinkFollowInputType>();
-
-            services.AddScoped<ISchema, LishlSchema>();
 
             services.AddGraphQL(opt =>
             {
@@ -64,13 +37,6 @@ namespace Lishl.GraphQL
             services.AddMediatR(typeof(Startup));
             services.AddCors();
         }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader());
-            app.UseGraphQL<ISchema>();
-            app.UseGraphQLPlayground();
-            app.UseRouting();
-        }
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Lishl.Core;
+using Lishl.Core.Enums;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -36,16 +37,16 @@ namespace Lishl.Infrastructure.PostgreSql.Repositories
 
         public Task<List<T1>> GetAsync(Expression<Func<T1, bool>> predicate, PaginationFilter paginationFilter)
         {
+            if (paginationFilter.Limit == 0)
+            {
+                return _context.Set<T1>().Where(predicate).Skip(paginationFilter.Offset).ToListAsync();
+            }
+            
             return _context.Set<T1>().Where(predicate).Skip(paginationFilter.Offset).Take(paginationFilter.Limit).ToListAsync();
         }
 
         public Task<T1> CreateAsync(T1 entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
             _context.Set<T1>().Add(entity);
             _context.SaveChanges();
             return _context.Set<T1>().FirstOrDefaultAsync(obj => obj.Id.Equals(entity.Id));
@@ -53,12 +54,24 @@ namespace Lishl.Infrastructure.PostgreSql.Repositories
 
         public Task UpdateAsync(T1 entity)
         {
-            if (entity == null)
+            var oldEntity = _context.Set<T1>().Find(entity.Id);
+
+            foreach(var property in typeof(T1).GetProperties())
             {
-                throw new ArgumentNullException(nameof(entity));
+                object value = property.GetValue(entity);
+
+                if (property.PropertyType == typeof(List<UserRole>))
+                {
+                    if (value is List<UserRole> { Count: > 0 })
+                    {
+                        property.SetValue(oldEntity, value);
+                    }
+                } else if (value != null)
+                {
+                    property.SetValue(oldEntity, value);
+                }
             }
             
-            _context.Set<T1>().Update(entity);
             return _context.SaveChangesAsync();
         }
 

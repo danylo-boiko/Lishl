@@ -17,7 +17,10 @@ namespace Lishl.GraphQL.GraphQL.Types
             Field(l => l.ShortUrl).Description("Short url of the link");
             Field<ListGraphType<LinkFollowType>>("follows", "Follows of the link", resolve: u=>u.Source.Follows);
 
-            Field<UserType>("user", "User details", resolve: content => mediator.Send(new GetUserByIdQuery{UserId = content.Source.UserId}));
+            FieldAsync<UserType>("user", "User details", resolve: async content => await mediator.Send(new GetUserByIdQuery
+            {
+                UserId = content.Source.UserId
+            }));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Collections.Generic;
+using FluentValidation;
+using Lishl.Core.Models;
 using Lishl.Core.Requests;
 
 namespace Lishl.Core.Validators
@@ -7,8 +9,16 @@ namespace Lishl.Core.Validators
     {
         public UpdateLinkRequestValidator()
         {
-            Include(new CreateLinkRequestValidator());
-            RuleForEach(link => link.Follows).SetValidator(new LinkFollowValidator());
+            RuleFor(link => link.UserId)
+                .NotEmpty();
+            RuleFor(link => link.FullUrl)
+                .NotEmpty();
+            RuleFor(link => link.ShortUrl)
+                .NotEmpty();
+            RuleFor(link => link.Follows)
+                .NotEmpty();
+            RuleForEach(link => link.Follows)
+                .SetValidator(new LinkFollowValidator());
         }
     }
 }

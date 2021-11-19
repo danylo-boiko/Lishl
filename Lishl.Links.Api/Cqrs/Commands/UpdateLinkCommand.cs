@@ -11,6 +11,6 @@ namespace Lishl.Links.Api.Cqrs.Commands
         public Guid UserId { get; set; }
         public string FullUrl { get; set; }
         public string ShortUrl { get; set; }
-        public IEnumerable<LinkFollow> Follows { get; set; }
+        public List<LinkFollow> Follows { get; set; }
     }
 }

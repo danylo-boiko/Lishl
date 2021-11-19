@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
 using Lishl.Core.Services;
@@ -10,21 +11,19 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
     {
         private readonly IUsersService _usersService; 
-        
-        public CreateUserCommandHandler(IUsersService usersService)
+        private readonly IMapper _mapper;
+
+        public CreateUserCommandHandler(IUsersService usersService, IMapper mapper)
         {
             _usersService = usersService;
+            _mapper = mapper;
         }
         
         public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            return await _usersService.CreateAsync(new CreateUserRequest
-            {
-                Username = request.Username,
-                Email = request.Email,
-                Password = request.Password,
-                Roles = request.Roles
-            });
+            var createUserRequest = _mapper.Map<CreateUserRequest>(request);
+            
+            return await _usersService.CreateAsync(createUserRequest);
         }
     }
 }

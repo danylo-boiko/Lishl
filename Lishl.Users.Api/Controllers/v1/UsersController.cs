@@ -32,9 +32,9 @@ namespace Lishl.Users.Api.Controllers.v1
             {
                 PaginationFilter = paginationFilter
             });
-            
+
             var response = _mapper.Map<IEnumerable<UserResponse>>(storedUsers);
-            
+
             return Ok(response);
         }
 
@@ -60,6 +60,13 @@ namespace Lishl.Users.Api.Controllers.v1
             {
                 return BadRequest("Request body is empty.");
             }
+
+            var storedUser = await _mediator.Send(new GetUserByEmailQuery { Email = createUserRequest.Email });
+
+            if (storedUser != null)
+            {
+                return BadRequest($"User with email {createUserRequest.Email} already exist.");
+            }
             
             var createdUser = await _mediator.Send(_mapper.Map<CreateUserCommand>(createUserRequest));
 
@@ -76,9 +83,23 @@ namespace Lishl.Users.Api.Controllers.v1
                 return BadRequest("Request body is empty.");
             }
 
+            var storedUserById = await _mediator.Send(new GetUserByIdQuery { Id = id });
+
+            if (storedUserById == null)
+            {
+                return BadRequest($"User with id {id} not found.");
+            }
+
+            var storedUserByEmail = await _mediator.Send(new GetUserByEmailQuery { Email = updateUserRequest.Email });
+
+            if (storedUserByEmail != null && id != storedUserByEmail.Id)
+            {
+                return BadRequest($"User with email {updateUserRequest.Email} already exist.");
+            }
+
             var updateUserCommand = _mapper.Map<UpdateUserCommand>(updateUserRequest);
             updateUserCommand.Id = id;
-            
+
             var updatedUser = await _mediator.Send(updateUserCommand);
 
             var response = _mapper.Map<UserResponse>(updatedUser);
@@ -98,7 +119,7 @@ namespace Lishl.Users.Api.Controllers.v1
 
             await _mediator.Send(new DeleteUserCommand { Id = id });
 
-            return Ok();
+            return Ok($"User with id {id} has been successfully deleted.");
         }
     }
 }

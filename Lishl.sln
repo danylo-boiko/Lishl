@@ -6,13 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Users.Api", "Lishl.Us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Links.Api", "Lishl.Links.Api\Lishl.Links.Api.csproj", "{E2AC09ED-8A74-4EB1-86DF-BE281E4B3310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.QRCodes.Api", "Lishl.QRCodes.Api\Lishl.QRCodes.Api.csproj", "{866D8985-0091-47C5-9F7F-6886675F7298}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Infrastructure.MongoDb", "Lishl.Infrastructure.MongoDb\Lishl.Infrastructure.MongoDb.csproj", "{1601376E-00E6-413E-A912-CCAD0B852D2C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Infrastructure.PostgreSql", "Lishl.Infrastructure.PostgreSql\Lishl.Infrastructure.PostgreSql.csproj", "{2AFC3093-D637-4FBB-801A-C47DA131E3EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.GraphQL", "Lishl.GraphQL\Lishl.GraphQL.csproj", "{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.QRCodes.Api", "Lishl.QRCodes.Api\Lishl.QRCodes.Api.csproj", "{6FEB4506-852A-425E-8F3B-5E20E743FE64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +32,6 @@ Global
 		{E2AC09ED-8A74-4EB1-86DF-BE281E4B3310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2AC09ED-8A74-4EB1-86DF-BE281E4B3310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2AC09ED-8A74-4EB1-86DF-BE281E4B3310}.Release|Any CPU.Build.0 = Release|Any CPU
-		{866D8985-0091-47C5-9F7F-6886675F7298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{866D8985-0091-47C5-9F7F-6886675F7298}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{866D8985-0091-47C5-9F7F-6886675F7298}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{866D8985-0091-47C5-9F7F-6886675F7298}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1601376E-00E6-413E-A912-CCAD0B852D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1601376E-00E6-413E-A912-CCAD0B852D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1601376E-00E6-413E-A912-CCAD0B852D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +44,9 @@ Global
 		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1D59B3E-2BBB-4056-8EA6-6907C2A6159E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using GraphQL;
 using GraphQL.Types;
 using Lishl.Core.Requests;
@@ -11,103 +12,89 @@ namespace Lishl.GraphQL.GraphQL.Mutations
 {
     public class LishlMutation : ObjectGraphType
     {
-        public LishlMutation(IMediator mediator)
+        public LishlMutation(IMediator mediator, IMapper mapper)
         {
             Name = "Mutation";
 
-            Field<UserType>("createUser",
+            FieldAsync<UserType>("createUser",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<CreateUserType>> { Name = "user" }),
-                resolve: context =>
+                resolve: async context =>
                 {
-                    var userRequest = context.GetArgument<CreateUserRequest>("user");
-
-                    return mediator.Send(new CreateUserCommand
+                    try
                     {
-                        Username = userRequest.Username,
-                        Email = userRequest.Email,
-                        Password = userRequest.Password,
-                        Roles = userRequest.Roles
-                    });
+                        var userRequest = context.GetArgument<CreateUserRequest>("user");
+                        
+                        return await mediator.Send(mapper.Map<CreateUserCommand>(userRequest));
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
+                        return null;
+                    }
                 });
             
             FieldAsync<LinkType>("createLink",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<CreateLinkType>> { Name = "link" }),
                 resolve: async context =>
                 {
-                    var linkRequest = context.GetArgument<CreateLinkRequest>("link");
-                    
-                    var storedUser = await mediator.Send(new GetUserByIdQuery { UserId = linkRequest.UserId });
-                    if (storedUser == null)
+                    try
                     {
-                        context.Errors.Add(new ExecutionError($"Couldn't find user with id {linkRequest.UserId}."));
+                        var linkRequest = context.GetArgument<CreateLinkRequest>("link");
+
+                        await mediator.Send(new GetUserByIdQuery { UserId = linkRequest.UserId });
+
+                        return await mediator.Send(mapper.Map<CreateLinkCommand>(linkRequest));
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
                         return null;
                     }
-                    
-                    return await mediator.Send(new CreateLinkCommand
-                    {
-                        UserId = linkRequest.UserId,
-                        FullUrl = linkRequest.FullUrl,
-                        ShortUrl = linkRequest.ShortUrl
-                    });
                 });
             
             FieldAsync<UserType>("updateUser",
-                arguments: new QueryArguments(
-                    new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the user" },
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the user" },
                     new QueryArgument<NonNullGraphType<UpdateUserType>> { Name = "user" }),
                 resolve: async context =>
                 {
-                    var userId = context.GetArgument<Guid>("id");
-                    var userRequest = context.GetArgument<UpdateUserRequest>("user");
-                    
-                    var storedUser = await mediator.Send(new GetUserByIdQuery{UserId = userId});
-                    if (storedUser == null)
+                    try
                     {
-                        context.Errors.Add(new ExecutionError($"Couldn't find user with id {userId}."));
+                        var userId = context.GetArgument<Guid>("id");
+                        var userRequest = context.GetArgument<UpdateUserRequest>("user");
+
+                        var updateUserCommand = mapper.Map<UpdateUserCommand>(userRequest);
+                        updateUserCommand.Id = userId;
+                        
+                        return await mediator.Send(updateUserCommand);
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
                         return null;
                     }
-                    
-                    return await mediator.Send(new UpdateUserCommand
-                    {
-                        Id = userId,
-                        Username = userRequest.Username,
-                        Email = userRequest.Email,
-                        Password = userRequest.Password,
-                        Roles = userRequest.Roles
-                    });
                 });
 
-            FieldAsync<LinkType>("updateLink",
-                arguments: new QueryArguments(
-                    new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the link" },
+            FieldAsync<LinkType>("updateLink", arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the link" },
                     new QueryArgument<NonNullGraphType<UpdateLinkType>> { Name = "link" }),
                 resolve: async context =>
                 {
-                    var linkId = context.GetArgument<Guid>("id");
-                    var linkRequest = context.GetArgument<UpdateLinkRequest>("link");
-
-                    var storedLink = await mediator.Send(new GetLinkByIdQuery { LinkId = linkId });
-                    if (storedLink == null)
+                    try
                     {
-                        context.Errors.Add(new ExecutionError($"Couldn't find link with id {linkId}."));
+                        var linkId = context.GetArgument<Guid>("id");
+                        var linkRequest = context.GetArgument<UpdateLinkRequest>("link");
+
+                        await mediator.Send(new GetUserByIdQuery { UserId = linkRequest.UserId });
+
+                        var updateLinkCommand = mapper.Map<UpdateLinkCommand>(linkRequest);
+                        updateLinkCommand.Id = linkId;
+                        
+                        return await mediator.Send(updateLinkCommand);
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
                         return null;
                     }
-
-                    var storedUser = await mediator.Send(new GetUserByIdQuery{UserId = linkRequest.UserId});
-                    if (storedUser == null)
-                    {
-                        context.Errors.Add(new ExecutionError($"Couldn't find user with id {linkRequest.UserId}."));
-                        return null;
-                    }
-
-                    return await mediator.Send(new UpdateLinkCommand
-                    {
-                        Id = linkId,
-                        UserId = linkRequest.UserId,
-                        FullUrl = linkRequest.FullUrl,
-                        ShortUrl = linkRequest.ShortUrl,
-                        Follows = linkRequest.Follows
-                    });
                 });
             
             FieldAsync<StringGraphType>("deleteUser",
@@ -115,17 +102,17 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                 resolve: async context =>
                 {
                     var userId = context.GetArgument<Guid>("id");
-                    
-                    var storedUser = await mediator.Send(new GetUserByIdQuery { UserId = userId });
-                    if (storedUser == null)
+                    try
+                    {
+                        var deletedUserId = await mediator.Send(new DeleteUserCommand { UserId = userId });
+
+                        return $"User with id {deletedUserId} has been successfully deleted.";
+                    }
+                    catch (Exception)
                     {
                         context.Errors.Add(new ExecutionError($"Couldn't find user with id {userId}."));
                         return null;
                     }
-
-                    var deletedUserId = await mediator.Send(new DeleteUserCommand { UserId = userId });
-
-                    return $"User with id {deletedUserId} has been successfully deleted.";
                 });
             
             FieldAsync<StringGraphType>("deleteLink",
@@ -133,17 +120,17 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                 resolve: async context =>
                 {
                     var linkId = context.GetArgument<Guid>("id");
-                    
-                    var storedLink = await mediator.Send(new GetLinkByIdQuery { LinkId = linkId });
-                    if (storedLink == null)
+                    try
+                    {
+                        var deletedLinkId = await mediator.Send(new DeleteLinkCommand { LinkId = linkId });
+
+                        return $"Link with id {deletedLinkId} has been successfully deleted.";
+                    }
+                    catch (Exception)
                     {
                         context.Errors.Add(new ExecutionError($"Couldn't find link with id {linkId}."));
                         return null;
                     }
-
-                    var deletedLinkId = await mediator.Send(new DeleteLinkCommand { LinkId = linkId });
-
-                    return $"Link with id {deletedLinkId} has been successfully deleted.";
                 });
         }
     }

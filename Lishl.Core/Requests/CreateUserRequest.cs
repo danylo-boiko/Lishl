@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Lishl.Core.Enums;
 
 namespace Lishl.Core.Requests
@@ -15,6 +16,6 @@ namespace Lishl.Core.Requests
         public string Password { get; set; }
         
         [Required]
-        public UserRole[] Roles { get; set; }
+        public List<UserRole> Roles { get; set; }
     }
 }
