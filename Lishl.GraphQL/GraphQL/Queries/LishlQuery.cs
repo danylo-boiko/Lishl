@@ -17,32 +17,32 @@ namespace Lishl.GraphQL.GraphQL.Queries
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "Id of the user" }), 
                 resolve: async context =>
                 {
-                    var userId = context.GetArgument<Guid>("id");
-                    var user = await mediator.Send(new GetUserByIdQuery { UserId = userId});
-                    
-                    if (user == null)
+                    try
                     {
-                        context.Errors.Add(new ExecutionError($"Couldn't find user with id {userId}."));
+                        var userId = context.GetArgument<Guid>("id");
+                        return await mediator.Send(new GetUserByIdQuery { UserId = userId });
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
                         return null;
                     }
-
-                    return user;
                 });
 
             FieldAsync<LinkType>("link", 
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "Id of the link" }),
                 resolve: async context =>
                 {
-                    var linkId = context.GetArgument<Guid>("id");
-                    var link = await mediator.Send(new GetLinkByIdQuery { LinkId = linkId });
-                    
-                    if (link == null)
+                    try
                     {
-                        context.Errors.Add(new ExecutionError($"Couldn't find link with id {linkId}."));
+                        var linkId = context.GetArgument<Guid>("id");
+                        return await mediator.Send(new GetLinkByIdQuery { LinkId = linkId });
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
                         return null;
                     }
-
-                    return link;
                 });
 
             Field<ListGraphType<UserType>>("users", resolve: _ => mediator.Send(new GetUsersQuery()));

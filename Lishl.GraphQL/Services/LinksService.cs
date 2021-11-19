@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using GraphQL;
 using Lishl.Core;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
@@ -24,9 +25,16 @@ namespace Lishl.GraphQL.Services
             return _client.GetFromJsonAsync<IEnumerable<Link>>("api/v1/links");
         }
 
-        public Task<IEnumerable<Link>> GetLinksByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Link>> GetLinksByUserIdAsync(Guid userId)
         {
-            return _client.GetFromJsonAsync<IEnumerable<Link>>($"api/v1/links/userId/{userId}");
+            var response = await _client.GetAsync($"api/v1/links/userId/{userId}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<IEnumerable<Link>>();
+            }
+            
+            throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
         }
 
         public async Task<Link> GetAsync(Guid linkId)
@@ -37,24 +45,32 @@ namespace Lishl.GraphQL.Services
             {
                 return await response.Content.ReadFromJsonAsync<Link>();
             }
-
-            return null;
+            
+            throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
         }
 
         public async Task<Link> CreateAsync(CreateLinkRequest createLinkRequest)
         {
             var response = await _client.PostAsJsonAsync("api/v1/links", createLinkRequest);
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadFromJsonAsync<Link>();
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Link>();
+            }
+            
+            throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
         }
 
         public async Task<Link> UpdateAsync(Guid linkId, UpdateLinkRequest updateLinkRequest)
         {
             var response = await _client.PutAsJsonAsync($"api/v1/links/{linkId}", updateLinkRequest);
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadFromJsonAsync<Link>();
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Link>();
+            }
+            
+            throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
         }
 
         public async Task DeleteAsync(Guid linkId)
