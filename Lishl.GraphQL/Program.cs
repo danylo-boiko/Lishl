@@ -50,7 +50,8 @@ builder.Services.AddGraphQL(opt =>
 {
     opt.EnableMetrics = true;
 }).AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true).AddSystemTextJson();
-            
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddCors();
 

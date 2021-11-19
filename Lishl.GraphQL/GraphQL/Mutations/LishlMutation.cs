@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using GraphQL;
 using GraphQL.Types;
 using Lishl.Core.Requests;
@@ -11,7 +12,7 @@ namespace Lishl.GraphQL.GraphQL.Mutations
 {
     public class LishlMutation : ObjectGraphType
     {
-        public LishlMutation(IMediator mediator)
+        public LishlMutation(IMediator mediator, IMapper mapper)
         {
             Name = "Mutation";
 
@@ -23,13 +24,7 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                     {
                         var userRequest = context.GetArgument<CreateUserRequest>("user");
                         
-                        return await mediator.Send(new CreateUserCommand
-                        {
-                            Username = userRequest.Username,
-                            Email = userRequest.Email,
-                            Password = userRequest.Password,
-                            Roles = userRequest.Roles
-                        });
+                        return await mediator.Send(mapper.Map<CreateUserCommand>(userRequest));
                     }
                     catch (ExecutionError e)
                     {
@@ -48,11 +43,7 @@ namespace Lishl.GraphQL.GraphQL.Mutations
 
                         await mediator.Send(new GetUserByIdQuery { UserId = linkRequest.UserId });
 
-                        return await mediator.Send(new CreateLinkCommand
-                        {
-                            UserId = linkRequest.UserId,
-                            FullUrl = linkRequest.FullUrl,
-                        });
+                        return await mediator.Send(mapper.Map<CreateLinkCommand>(linkRequest));
                     }
                     catch (ExecutionError e)
                     {
@@ -70,15 +61,11 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                     {
                         var userId = context.GetArgument<Guid>("id");
                         var userRequest = context.GetArgument<UpdateUserRequest>("user");
+
+                        var updateUserCommand = mapper.Map<UpdateUserCommand>(userRequest);
+                        updateUserCommand.Id = userId;
                         
-                        return await mediator.Send(new UpdateUserCommand
-                        {
-                            Id = userId,
-                            Username = userRequest.Username,
-                            Email = userRequest.Email,
-                            Password = userRequest.Password,
-                            Roles = userRequest.Roles
-                        });
+                        return await mediator.Send(updateUserCommand);
                     }
                     catch (ExecutionError e)
                     {
@@ -98,14 +85,10 @@ namespace Lishl.GraphQL.GraphQL.Mutations
 
                         await mediator.Send(new GetUserByIdQuery { UserId = linkRequest.UserId });
 
-                        return await mediator.Send(new UpdateLinkCommand
-                        {
-                            Id = linkId,
-                            UserId = linkRequest.UserId,
-                            FullUrl = linkRequest.FullUrl,
-                            ShortUrl = linkRequest.ShortUrl,
-                            Follows = linkRequest.Follows
-                        });
+                        var updateLinkCommand = mapper.Map<UpdateLinkCommand>(linkRequest);
+                        updateLinkCommand.Id = linkId;
+                        
+                        return await mediator.Send(updateLinkCommand);
                     }
                     catch (ExecutionError e)
                     {
