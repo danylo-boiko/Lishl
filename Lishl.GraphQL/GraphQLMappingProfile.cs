@@ -10,15 +10,19 @@ namespace Lishl.GraphQL
         {
             CreateMap<CreateLinkCommand, CreateLinkRequest>();
             CreateMap<CreateUserCommand, CreateUserRequest>();
-            
+            CreateMap<CreateQRCodeCommand, CreateQRCodeRequest>();
+
             CreateMap<UpdateLinkCommand, UpdateLinkRequest>();
             CreateMap<UpdateUserCommand, UpdateUserRequest>();
-            
+            CreateMap<UpdateQRCodeCommand, UpdateQRCodeRequest>();
+
             CreateMap<CreateUserRequest, CreateUserCommand>();
             CreateMap<CreateLinkRequest, CreateLinkCommand>();
+            CreateMap<CreateQRCodeRequest, CreateQRCodeCommand>();
 
             CreateMap<UpdateUserRequest, UpdateUserCommand>();
             CreateMap<UpdateLinkRequest, UpdateLinkCommand>();
+            CreateMap<UpdateQRCodeRequest, UpdateQRCodeCommand>();
         }
     }
 }

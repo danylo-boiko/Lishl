@@ -16,9 +16,9 @@ namespace Lishl.GraphQL.Cqrs.Queries.Handlers
             _linksService = linksService;
         }
         
-        public async Task<IEnumerable<Link>> Handle(GetLinksByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Link>> Handle(GetLinksByUserIdQuery query, CancellationToken cancellationToken)
         {
-            return await _linksService.GetLinksByUserIdAsync(request.UserId);
+            return await _linksService.GetLinksByUserIdAsync(query.UserId);
         }
     }
 }

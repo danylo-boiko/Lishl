@@ -20,9 +20,9 @@ namespace Lishl.Links.Api.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
         
-        public async Task<Link> Handle(CreateLinkCommand request, CancellationToken cancellationToken)
+        public async Task<Link> Handle(CreateLinkCommand command, CancellationToken cancellationToken)
         {
-            var link = _mapper.Map<Link>(request);
+            var link = _mapper.Map<Link>(command);
 
             link.Id = Guid.NewGuid();
             link.ShortUrl = WebEncoders.Base64UrlEncode(link.Id.ToByteArray());

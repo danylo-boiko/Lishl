@@ -19,9 +19,9 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
         
-        public async Task<Link> Handle(CreateLinkCommand request, CancellationToken cancellationToken)
+        public async Task<Link> Handle(CreateLinkCommand command, CancellationToken cancellationToken)
         {
-            var createLinkRequest = _mapper.Map<CreateLinkRequest>(request);
+            var createLinkRequest = _mapper.Map<CreateLinkRequest>(command);
             
             return await _linksService.CreateAsync(createLinkRequest);
         }

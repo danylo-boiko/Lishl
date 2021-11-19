@@ -18,9 +18,9 @@ namespace Lishl.Links.Api.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
 
-        public async Task<Link> Handle(UpdateLinkCommand request, CancellationToken cancellationToken)
+        public async Task<Link> Handle(UpdateLinkCommand command, CancellationToken cancellationToken)
         {
-            var link = _mapper.Map<Link>(request);
+            var link = _mapper.Map<Link>(command);
 
             await _linksRepository.UpdateAsync(link);
             

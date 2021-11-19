@@ -18,9 +18,9 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
 
-        public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request);
+            var user = _mapper.Map<User>(command);
 
             await _usersRepository.UpdateAsync(user);
             

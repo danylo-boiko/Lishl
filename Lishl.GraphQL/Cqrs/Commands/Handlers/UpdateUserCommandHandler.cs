@@ -19,11 +19,11 @@ namespace Lishl.GraphQL.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
         
-        public async Task<User> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
-            var updateUserRequest = _mapper.Map<UpdateUserRequest>(request);
+            var updateUserRequest = _mapper.Map<UpdateUserRequest>(command);
             
-            return await _usersService.UpdateAsync(request.Id, updateUserRequest);
+            return await _usersService.UpdateAsync(command.Id, updateUserRequest);
         }
     }
 }
