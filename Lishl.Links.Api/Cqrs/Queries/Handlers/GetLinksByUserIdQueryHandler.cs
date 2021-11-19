@@ -16,9 +16,9 @@ namespace Lishl.Links.Api.Cqrs.Queries.Handlers
             _linksRepository = linksRepository;
         }
         
-        public async Task<IEnumerable<Link>> Handle(GetLinksByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Link>> Handle(GetLinksByUserIdQuery query, CancellationToken cancellationToken)
         {
-            return await _linksRepository.GetAsync(l => l.UserId == request.UserId, request.PaginationFilter);
+            return await _linksRepository.GetAsync(l => l.UserId.Equals(query.UserId), query.PaginationFilter);
         }
     }
 }

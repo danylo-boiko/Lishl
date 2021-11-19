@@ -14,9 +14,9 @@ namespace Lishl.Links.Api.Cqrs.Commands.Handlers
             _linksRepository = linksRepository;
         }
         
-        protected override async Task Handle(DeleteLinkCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(DeleteLinkCommand command, CancellationToken cancellationToken)
         {
-            await _linksRepository.DeleteAsync(request.Id);
+            await _linksRepository.DeleteAsync(command.Id);
         }
     }
 }

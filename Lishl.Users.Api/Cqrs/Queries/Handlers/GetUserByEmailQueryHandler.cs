@@ -15,9 +15,9 @@ namespace Lishl.Users.Api.Cqrs.Queries.Handlers
             _usersRepository = usersRepository;
         }
         
-        public async Task<User> Handle(GetUserByEmailQuery request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
         {
-            return await _usersRepository.GetByEmailAsync(request.Email); 
+            return await _usersRepository.GetByEmailAsync(query.Email); 
         }
     }
 }

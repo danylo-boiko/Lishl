@@ -18,9 +18,9 @@ namespace Lishl.Users.Api.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
 
-        public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request);
+            var user = _mapper.Map<User>(command);
 
             return await _usersRepository.CreateAsync(user);
         }

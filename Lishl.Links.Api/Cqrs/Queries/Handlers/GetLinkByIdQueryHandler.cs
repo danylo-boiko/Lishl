@@ -15,9 +15,9 @@ namespace Lishl.Links.Api.Cqrs.Queries.Handlers
             _linksRepository = linksRepository;
         }
         
-        public async Task<Link> Handle(GetLinkByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Link> Handle(GetLinkByIdQuery query, CancellationToken cancellationToken)
         {
-            return await _linksRepository.GetAsync(request.Id); 
+            return await _linksRepository.GetAsync(query.Id); 
         }
     }
 }

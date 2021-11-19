@@ -16,9 +16,9 @@ namespace Lishl.Users.Api.Cqrs.Queries.Handlers
             _usersRepository = usersRepository;
         }
         
-        public async Task<IEnumerable<User>> Handle(GetUsersByPaginationFilterQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetUsersByPaginationFilterQuery query, CancellationToken cancellationToken)
         {
-            return await _usersRepository.GetAsync(request.PaginationFilter);
+            return await _usersRepository.GetAsync(query.PaginationFilter);
         }
     }
 }
