@@ -74,7 +74,8 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                     }
                 });
 
-            FieldAsync<LinkType>("updateLink", arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the link" },
+            FieldAsync<LinkType>("updateLink",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the link" }, 
                     new QueryArgument<NonNullGraphType<UpdateLinkType>> { Name = "link" }),
                 resolve: async context =>
                 {
@@ -97,7 +98,7 @@ namespace Lishl.GraphQL.GraphQL.Mutations
                     }
                 });
             
-            FieldAsync<StringGraphType>("deleteUser",
+            FieldAsync<StringGraphType>("deleteUser", 
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<GuidGraphType>> { Name = "id", Description = "Id of the stored user"}),
                 resolve: async context =>
                 {
