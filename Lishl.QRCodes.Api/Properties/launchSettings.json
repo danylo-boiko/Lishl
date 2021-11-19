@@ -4,25 +4,25 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:24833",
-      "sslPort": 44336
+      "applicationUrl": "http://localhost:59275",
+      "sslPort": 44389
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "ui/playground",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Lishl.GraphQL": {
+    "Lishl.QRCodes.Api": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "launchUrl": "ui/playground",
-      "applicationUrl": "https://127.0.0.1:5000;http://127.0.0.1:5100",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5001;http://localhost:5101",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
