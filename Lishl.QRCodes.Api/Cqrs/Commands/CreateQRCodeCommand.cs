@@ -8,6 +8,6 @@ namespace Lishl.QRCodes.Api.Cqrs.Commands
     {
         public Guid UserId { get; set; }
         public string Url { get; set; }
-        public byte[] RCodeBitmap { get; set; } 
+        public byte[] QRCodeBitmap { get; set; } 
     }
 }
