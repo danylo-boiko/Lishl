@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
-using Lishl.QRCodes.Api.Managers;
+using Lishl.QRCodes.Api.Helpers;
 using MediatR;
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
