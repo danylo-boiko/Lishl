@@ -50,6 +50,18 @@ namespace Lishl.GraphQL.Services
             throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
         }
 
+        public async Task<Link> GetAsync(string shortUrl)
+        {
+            var response = await _client.GetAsync($"{BaseUrl}/short/{shortUrl}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Link>();
+            }
+            
+            throw new ExecutionError(response.Content.ReadAsStringAsync().Result);
+        }
+
         public async Task<Link> CreateAsync(CreateLinkRequest createLinkRequest)
         {
             var response = await _client.PostAsJsonAsync(BaseUrl, createLinkRequest);

@@ -1,17 +1,15 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Lishl.Core.Models;
 using Lishl.Core.Repositories;
+using Lishl.QRCodes.Api.Helpers;
 using MediatR;
-using QRCoder;
-using QRCodeModel = Lishl.Core.Models.QRCode;
+
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
 {
-    public class CreateQRCodeCommandHandler : IRequestHandler<CreateQRCodeCommand, QRCodeModel>
+    public class CreateQRCodeCommandHandler : IRequestHandler<CreateQRCodeCommand, QRCode>
     {
         private readonly IQRCodesRepository _qrCodesRepository;
         private readonly IMapper _mapper;
@@ -21,25 +19,14 @@ namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
             _qrCodesRepository = qrCodesRepository;
             _mapper = mapper;
         }
-        
-        public async Task<QRCodeModel> Handle(CreateQRCodeCommand command, CancellationToken cancellationToken)
+
+        public async Task<QRCode> Handle(CreateQRCodeCommand command, CancellationToken cancellationToken)
         {
-            var qrCodeModel = _mapper.Map<QRCodeModel>(command);
+            var qrCode = _mapper.Map<QRCode>(command);
 
-            var qrCodeGenerator = new QRCodeGenerator();
-            var qrCodeData = qrCodeGenerator.CreateQrCode(qrCodeModel.Url,QRCodeGenerator.ECCLevel.Q);
-            var qrCode = new QRCode(qrCodeData);
+            qrCode.QRCodeBitmap = QRCodeHelper.GetUrlBitmap(qrCode.Url);
 
-            qrCodeModel.QRCodeBitmap = BitmapToBytesCode(qrCode.GetGraphic(20)); 
-
-            return await _qrCodesRepository.CreateAsync(qrCodeModel);
-        }
-        
-        private static byte[] BitmapToBytesCode(Bitmap image)
-        {
-            using var stream = new MemoryStream();
-            image.Save(stream, ImageFormat.Png);      
-            return stream.ToArray();
+            return await _qrCodesRepository.CreateAsync(qrCode);
         }
     }
 }

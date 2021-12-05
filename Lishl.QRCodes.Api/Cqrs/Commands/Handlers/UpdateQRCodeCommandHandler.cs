@@ -1,17 +1,14 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Lishl.Core.Models;
 using Lishl.Core.Repositories;
+using Lishl.QRCodes.Api.Helpers;
 using MediatR;
-using QRCoder;
-using QRCodeModel = Lishl.Core.Models.QRCode;
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
 {
-    public class UpdateQRCodeCommandHandler : IRequestHandler<UpdateQRCodeCommand, QRCodeModel>
+    public class UpdateQRCodeCommandHandler : IRequestHandler<UpdateQRCodeCommand, QRCode>
     {
         private readonly IQRCodesRepository _qrCodesRepository;
         private readonly IMapper _mapper;
@@ -22,26 +19,15 @@ namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
             _mapper = mapper;
         }
 
-        public async Task<QRCodeModel> Handle(UpdateQRCodeCommand command, CancellationToken cancellationToken)
+        public async Task<QRCode> Handle(UpdateQRCodeCommand command, CancellationToken cancellationToken)
         {
-            var qrCodeModel = _mapper.Map<QRCodeModel>(command);
+            var qrCode = _mapper.Map<QRCode>(command);
 
-            var qrCodeGenerator = new QRCodeGenerator();
-            var qrCodeData = qrCodeGenerator.CreateQrCode(qrCodeModel.Url,QRCodeGenerator.ECCLevel.Q);
-            var qrCode = new QRCode(qrCodeData);
+            qrCode.QRCodeBitmap = QRCodeHelper.GetUrlBitmap(qrCode.Url);
             
-            qrCodeModel.QRCodeBitmap = BitmapToBytesCode(qrCode.GetGraphic(20));
+            await _qrCodesRepository.UpdateAsync(qrCode);
             
-            await _qrCodesRepository.UpdateAsync(qrCodeModel);
-            
-            return await _qrCodesRepository.GetAsync(qrCodeModel.Id);
-        }
-        
-        private static byte[] BitmapToBytesCode(Bitmap image)
-        {
-            using var stream = new MemoryStream();
-            image.Save(stream, ImageFormat.Png);      
-            return stream.ToArray();
+            return await _qrCodesRepository.GetAsync(qrCode.Id);
         }
     }
 }
