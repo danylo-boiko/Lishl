@@ -45,7 +45,23 @@ namespace Lishl.GraphQL.GraphQL.Queries
                     }
                 });
             
-            FieldAsync<QRCodeType>("qrcode", 
+            FieldAsync<LinkType>("linkByShort", 
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "shortUrl", Description = "short url of the link" }),
+                resolve: async context =>
+                {
+                    try
+                    {
+                        var shortUrl = context.GetArgument<string>("shortUrl");
+                        return await mediator.Send(new GetLinkByShortUrlQuery { ShortUrl = shortUrl });
+                    }
+                    catch (ExecutionError e)
+                    {
+                        context.Errors.Add(new ExecutionError(e.Message));
+                        return null;
+                    }
+                });
+            
+            FieldAsync<QRCodeType>("qrCode", 
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "id", Description = "Id of the qr code" }),
                 resolve: async context =>
                 {
@@ -63,7 +79,7 @@ namespace Lishl.GraphQL.GraphQL.Queries
 
             Field<ListGraphType<UserType>>("users", resolve: _ => mediator.Send(new GetUsersQuery()));
             Field<ListGraphType<LinkType>>("links", resolve: _ => mediator.Send(new GetLinksQuery()));
-            Field<ListGraphType<QRCodeType>>("qrcodes", resolve: _ => mediator.Send(new GetQRCodesQuery()));
+            Field<ListGraphType<QRCodeType>>("qrCodes", resolve: _ => mediator.Send(new GetQRCodesQuery()));
         }
     }
 }

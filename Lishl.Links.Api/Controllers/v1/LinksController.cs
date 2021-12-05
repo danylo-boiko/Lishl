@@ -51,7 +51,7 @@ namespace Lishl.Links.Api.Controllers.v1
             
             return Ok(response);
         }
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<LinkResponse>> Get([FromRoute] Guid id)
         {
@@ -64,6 +64,24 @@ namespace Lishl.Links.Api.Controllers.v1
 
             var response = _mapper.Map<LinkResponse>(storedLink);
 
+            return Ok(response);
+        }
+        
+        [HttpGet("short/{shortUrl}")]
+        public async Task<ActionResult<LinkResponse>> GetLinkByShortUrl([FromRoute] string shortUrl)
+        {
+            var storedLink = await _mediator.Send(new GetLinkByShortUrlQuery 
+            {
+                ShortUrl = shortUrl
+            });
+            
+            if (storedLink == null)
+            {
+                return BadRequest($"Link with short url {shortUrl} not found.");
+            }
+            
+            var response = _mapper.Map<LinkResponse>(storedLink);
+            
             return Ok(response);
         }
         
