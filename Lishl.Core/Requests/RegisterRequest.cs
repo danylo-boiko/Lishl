@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lishl.Authentication.Requests
+namespace Lishl.Core.Requests
 {
     public class RegisterRequest : LoginRequest
     {

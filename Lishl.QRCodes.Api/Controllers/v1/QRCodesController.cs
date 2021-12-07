@@ -11,10 +11,12 @@ using Lishl.QRCodes.Api.Cqrs.Commands;
 using Lishl.QRCodes.Api.Cqrs.Queries;
 using Lishl.QRCodes.Api.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.QRCodes.Api.Controllers.v1
 {
+    [Authorize]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class QRCodesController : ControllerBase

@@ -1,11 +1,17 @@
 using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Lishl.Authentication.Core;
 using Lishl.Authentication.Core.Configurations;
 using Lishl.Authentication.Services;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
+using Lishl.Core.Requests;
+using Lishl.Core.Validators;
 using Lishl.Infrastructure.PostgreSql;
 using Lishl.Infrastructure.PostgreSql.Repositories;
+using Lishl.Users.Api;
+using Lishl.Users.Api.Cqrs.Commands.Handlers;
 using Lishl.Users.Api.Cqrs.Queries.Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -22,13 +28,19 @@ builder.Services.AddSingleton<ITokenConfiguration, TokenConfiguration>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 
+builder.Services.AddFluentValidation();
+builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
+builder.Services.AddMediatR(typeof(GetUserByEmailQueryHandler).GetTypeInfo().Assembly);
+builder.Services.AddMediatR(typeof(CreateUserCommandHandler).GetTypeInfo().Assembly);
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
-
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(typeof(GetUserByEmailQueryHandler).GetTypeInfo().Assembly);
-builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
