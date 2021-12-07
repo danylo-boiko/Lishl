@@ -1,4 +1,4 @@
-﻿namespace Lishl.Authentication.Interfaces
+﻿namespace Lishl.Authentication.Core.Configurations
 {
     public interface ITokenConfiguration
     {

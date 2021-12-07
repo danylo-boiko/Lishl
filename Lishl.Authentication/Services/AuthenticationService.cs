@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Lishl.Authentication.Interfaces;
+using Lishl.Authentication.Core.Configurations;
 using Lishl.Authentication.Responses;
 using Lishl.Core.Models;
 using Microsoft.IdentityModel.Tokens;

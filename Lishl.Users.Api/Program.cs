@@ -1,6 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Lishl.Authentication.Core;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using Lishl.Core.Requests;
@@ -26,6 +27,7 @@ builder.Services.AddTransient<IValidator<UpdateUserRequest>, UpdateUserRequestVa
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

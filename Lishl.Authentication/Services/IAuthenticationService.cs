@@ -1,7 +1,7 @@
 ﻿using Lishl.Authentication.Responses;
 using Lishl.Core.Models;
 
-namespace Lishl.Authentication.Interfaces
+namespace Lishl.Authentication.Services
 {
     public interface IAuthenticationService
     {

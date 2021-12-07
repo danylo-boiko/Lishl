@@ -1,7 +1,6 @@
 using System.Reflection;
-using Lishl.Authentication;
-using Lishl.Authentication.Configurations;
-using Lishl.Authentication.Interfaces;
+using Lishl.Authentication.Core;
+using Lishl.Authentication.Core.Configurations;
 using Lishl.Authentication.Services;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
@@ -25,12 +24,10 @@ builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(GetUserByEmailQueryHandler).GetTypeInfo().Assembly);
-
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();

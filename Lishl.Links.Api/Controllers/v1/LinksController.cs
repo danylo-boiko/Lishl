@@ -8,6 +8,7 @@ using Lishl.Links.Api.Cqrs.Commands;
 using Lishl.Links.Api.Cqrs.Queries;
 using Lishl.Links.Api.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Links.Api.Controllers.v1
@@ -26,6 +27,7 @@ namespace Lishl.Links.Api.Controllers.v1
         }
         
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<LinkResponse>> Get([FromQuery] PaginationFilter paginationFilter)
         {
             var storedLinks = await _mediator.Send(new GetLinksByPaginationFilterQuery

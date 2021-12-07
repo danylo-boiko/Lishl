@@ -1,12 +1,12 @@
 ﻿using System.Text;
-using Lishl.Authentication.Configurations;
+using Lishl.Authentication.Core.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Lishl.Authentication
+namespace Lishl.Authentication.Core
 {
     public static class JwtAuthenticationDependencyInjection
     {

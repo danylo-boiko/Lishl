@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Lishl.Authentication.Interfaces;
 using Lishl.Authentication.Requests;
 using Lishl.Authentication.Responses;
+using Lishl.Authentication.Services;
 using Lishl.Core.Models;
 using Lishl.Users.Api.Cqrs.Queries;
 using MediatR;

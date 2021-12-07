@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Lishl.Authentication.Core\Lishl.Authentication.Core.csproj" />
       <ProjectReference Include="..\Lishl.Core\Lishl.Core.csproj" />
       <ProjectReference Include="..\Lishl.Infrastructure.PostgreSql\Lishl.Infrastructure.PostgreSql.csproj" />
     </ItemGroup>

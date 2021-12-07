@@ -1,7 +1,6 @@
-﻿using Lishl.Authentication.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace Lishl.Authentication.Configurations
+namespace Lishl.Authentication.Core.Configurations
 {
     public record TokenConfiguration : ITokenConfiguration
     {
