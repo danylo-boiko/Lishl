@@ -7,6 +7,8 @@ Lishl.Links.Api/bin/**
 Lishl.Links.Api/obj/**
 Lishl.QRCodes.Api/bin/**
 Lishl.QRCodes.Api/obj/**
+Lishl.Authentication/bin/**
+Lishl.Authentication/obj/**
 Lishl.Core/bin/**
 Lishl.Core/obj/**
 Lishl.Infrastructure.MongoDb/bin/**
