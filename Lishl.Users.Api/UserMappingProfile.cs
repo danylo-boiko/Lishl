@@ -14,8 +14,10 @@ namespace Lishl.Users.Api
             var passwordHasher = new PasswordHasher<User>();
             
             CreateMap<User, UserResponse>();
+            
             CreateMap<CreateUserCommand, User>();
             CreateMap<UpdateUserCommand, User>();
+            
             CreateMap<CreateUserRequest, CreateUserCommand>().ForMember(u => u.HashedPassword, cu =>
             {
                 cu.MapFrom(c => passwordHasher.HashPassword(new User(), c.Password));

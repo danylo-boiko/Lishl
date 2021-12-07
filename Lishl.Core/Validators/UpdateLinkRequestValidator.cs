@@ -15,8 +15,6 @@ namespace Lishl.Core.Validators
                 .NotEmpty();
             RuleFor(link => link.ShortUrl)
                 .NotEmpty();
-            RuleFor(link => link.Follows)
-                .NotEmpty();
             RuleForEach(link => link.Follows)
                 .SetValidator(new LinkFollowValidator());
         }

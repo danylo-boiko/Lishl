@@ -11,8 +11,10 @@ namespace Lishl.QRCodes.Api
         public QRCodeMappingProfile()
         {
             CreateMap<QRCode, QRCodeResponse>();
+            
             CreateMap<CreateQRCodeCommand, QRCode>();
             CreateMap<UpdateQRCodeCommand, QRCode>();
+            
             CreateMap<CreateQRCodeRequest, CreateQRCodeCommand>();
             CreateMap<UpdateQRCodeRequest, UpdateQRCodeCommand>();
         }
