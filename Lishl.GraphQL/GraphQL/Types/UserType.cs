@@ -23,7 +23,7 @@ namespace Lishl.GraphQL.GraphQL.Types
                 UserId = context.Source.Id
             }));
             
-            FieldAsync<ListGraphType<QRCodeType>>("qrcodes", "QR codes of the user", resolve: async context => await mediator.Send(new GetQRCodesByUserIdQuery
+            FieldAsync<ListGraphType<QRCodeType>>("qrCodes", "QR codes of the user", resolve: async context => await mediator.Send(new GetQRCodesByUserIdQuery
             {
                 UserId = context.Source.Id
             }));

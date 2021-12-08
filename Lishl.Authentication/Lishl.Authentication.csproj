@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <AssemblyName>Lishl.Users.Api</AssemblyName>
-        <RootNamespace>Lishl.Users.Api</RootNamespace>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,17 +12,13 @@
         <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.5" />
         <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Lishl.Authentication.Core\Lishl.Authentication.Core.csproj" />
       <ProjectReference Include="..\Lishl.Core\Lishl.Core.csproj" />
-      <ProjectReference Include="..\Lishl.Infrastructure.PostgreSql\Lishl.Infrastructure.PostgreSql.csproj" />
+      <ProjectReference Include="..\Lishl.Users.Api\Lishl.Users.Api.csproj" />
     </ItemGroup>
 
 </Project>

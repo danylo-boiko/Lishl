@@ -11,8 +11,10 @@ namespace Lishl.Links.Api
         public LinkMappingProfile()
         {
             CreateMap<Link, LinkResponse>();
+            
             CreateMap<CreateLinkCommand, Link>();
             CreateMap<UpdateLinkCommand, Link>();
+            
             CreateMap<CreateLinkRequest, CreateLinkCommand>();
             CreateMap<UpdateLinkRequest, UpdateLinkCommand>();
         }

@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.GraphQL", "Lishl.Grap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.QRCodes.Api", "Lishl.QRCodes.Api\Lishl.QRCodes.Api.csproj", "{6FEB4506-852A-425E-8F3B-5E20E743FE64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Authentication", "Lishl.Authentication\Lishl.Authentication.csproj", "{A7ADB452-DDAE-4D1C-953F-A32A0A2F95E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lishl.Authentication.Core", "Lishl.Authentication.Core\Lishl.Authentication.Core.csproj", "{BA1E2A76-6288-4575-AFCC-AA16273F889E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,13 @@ Global
 		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FEB4506-852A-425E-8F3B-5E20E743FE64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7ADB452-DDAE-4D1C-953F-A32A0A2F95E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7ADB452-DDAE-4D1C-953F-A32A0A2F95E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7ADB452-DDAE-4D1C-953F-A32A0A2F95E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7ADB452-DDAE-4D1C-953F-A32A0A2F95E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1E2A76-6288-4575-AFCC-AA16273F889E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1E2A76-6288-4575-AFCC-AA16273F889E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1E2A76-6288-4575-AFCC-AA16273F889E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1E2A76-6288-4575-AFCC-AA16273F889E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

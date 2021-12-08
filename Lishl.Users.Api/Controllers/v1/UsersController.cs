@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Lishl.Authentication.Core.Attributes;
 using Lishl.Core;
+using Lishl.Core.Enums;
 using Lishl.Core.Requests;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
 using Lishl.Users.Api.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Users.Api.Controllers.v1
@@ -53,6 +56,8 @@ namespace Lishl.Users.Api.Controllers.v1
             return Ok(response);
         }
 
+        [Authorize]
+        [AuthorizeRoles(UserRole.Moderator, UserRole.Admin)]
         [HttpPost]
         public async Task<ActionResult<UserResponse>> Create([FromBody] CreateUserRequest createUserRequest)
         {
@@ -75,6 +80,8 @@ namespace Lishl.Users.Api.Controllers.v1
             return Ok(response);
         }
 
+        [Authorize]
+        [AuthorizeRoles(UserRole.Moderator, UserRole.Admin)]
         [HttpPut("{id}")]
         public async Task<ActionResult<UserResponse>> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
         {
@@ -107,6 +114,8 @@ namespace Lishl.Users.Api.Controllers.v1
             return Ok(response);
         }
 
+        [Authorize]
+        [AuthorizeRoles(UserRole.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
         {

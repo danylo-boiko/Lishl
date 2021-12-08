@@ -65,7 +65,6 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddCors();
 
-
 var app = builder.Build();
 
 app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader());
