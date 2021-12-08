@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Links.Api.Controllers.v1
 {
-    [Authorize]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LinksController : ControllerBase

@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.QRCodes.Api.Controllers.v1
 {
-    [Authorize]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class QRCodesController : ControllerBase
