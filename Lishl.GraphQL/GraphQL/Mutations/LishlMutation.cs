@@ -2,10 +2,16 @@
 using AutoMapper;
 using GraphQL;
 using GraphQL.Types;
-using Lishl.Core.Requests;
-using Lishl.GraphQL.Cqrs.Commands;
-using Lishl.GraphQL.Cqrs.Queries;
-using Lishl.GraphQL.GraphQL.Types;
+using Lishl.Core.Requests.Link;
+using Lishl.Core.Requests.QRCode;
+using Lishl.Core.Requests.User;
+using Lishl.GraphQL.Cqrs.Commands.Links;
+using Lishl.GraphQL.Cqrs.Commands.QRCodes;
+using Lishl.GraphQL.Cqrs.Commands.Users;
+using Lishl.GraphQL.Cqrs.Queries.Users;
+using Lishl.GraphQL.GraphQL.Types.Link;
+using Lishl.GraphQL.GraphQL.Types.QRCode;
+using Lishl.GraphQL.GraphQL.Types.User;
 using MediatR;
 
 namespace Lishl.GraphQL.GraphQL.Mutations

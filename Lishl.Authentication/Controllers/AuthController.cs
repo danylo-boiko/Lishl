@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Lishl.Authentication.AuthenticationService;
 using Lishl.Authentication.Responses;
-using Lishl.Authentication.Services;
-using Lishl.Core.Enums;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
+using Lishl.Core.Requests.Auth;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
 using MediatR;
@@ -47,8 +45,7 @@ namespace Lishl.Authentication.Controllers
                 return BadRequest($"User with email: {loginRequest.Email} not found.");
             }
 
-            var passwordVerificationResult =
-                _passwordHasher.VerifyHashedPassword(storedUser, storedUser.HashedPassword, loginRequest.Password);
+            var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(storedUser, storedUser.HashedPassword, loginRequest.Password);
 
             if (passwordVerificationResult != PasswordVerificationResult.Success)
             {
@@ -68,7 +65,7 @@ namespace Lishl.Authentication.Controllers
                 return BadRequest();
             }
 
-            var storedUser = await _mediator.Send(new GetUserByEmailQuery {Email = registerRequest.Email});
+            var storedUser = await _mediator.Send(new GetUserByEmailQuery { Email = registerRequest.Email });
 
             if (storedUser != null)
             {

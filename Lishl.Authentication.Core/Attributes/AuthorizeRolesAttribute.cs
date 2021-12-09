@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Lishl.Core.Enums;
+﻿using Lishl.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Lishl.Authentication.Core.Attributes

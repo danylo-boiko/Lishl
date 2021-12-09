@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Lishl.Core;
-using Lishl.Core.Requests;
+using Lishl.Core.Requests.Link;
 using Lishl.Links.Api.Cqrs.Commands;
 using Lishl.Links.Api.Cqrs.Queries;
 using Lishl.Links.Api.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.Links.Api.Controllers.v1

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Lishl.Core.Repositories;
+﻿using Lishl.Core.Repositories;
 using MediatR;
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers

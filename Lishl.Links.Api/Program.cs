@@ -1,11 +1,10 @@
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Lishl.Authentication;
 using Lishl.Authentication.Core;
 using Lishl.Core.Repositories;
-using Lishl.Core.Requests;
-using Lishl.Core.Validators;
+using Lishl.Core.Requests.Link;
+using Lishl.Core.Validators.Link;
 using Lishl.Infrastructure.MongoDb;
 using Lishl.Infrastructure.MongoDb.Repositories;
 using MediatR;

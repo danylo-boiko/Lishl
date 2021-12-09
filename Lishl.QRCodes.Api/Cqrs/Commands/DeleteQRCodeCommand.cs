@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands
 {

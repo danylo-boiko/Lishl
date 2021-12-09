@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Lishl.Core.Enums;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
+using Lishl.Core.Requests.Auth;
 using Lishl.Users.Api.Cqrs.Commands;
 using Microsoft.AspNetCore.Identity;
 

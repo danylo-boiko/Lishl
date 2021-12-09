@@ -1,24 +1,22 @@
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Lishl.Authentication.AuthenticationService;
 using Lishl.Authentication.Core;
 using Lishl.Authentication.Core.Configurations;
-using Lishl.Authentication.Services;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using Lishl.Core.Requests;
+using Lishl.Core.Requests.Auth;
 using Lishl.Core.Validators;
+using Lishl.Core.Validators.Auth;
 using Lishl.Infrastructure.PostgreSql;
 using Lishl.Infrastructure.PostgreSql.Repositories;
 using Lishl.Users.Api;
 using Lishl.Users.Api.Cqrs.Commands.Handlers;
 using Lishl.Users.Api.Cqrs.Queries.Handlers;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

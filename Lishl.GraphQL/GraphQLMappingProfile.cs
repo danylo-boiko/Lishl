@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
-using Lishl.Core.Requests;
-using Lishl.GraphQL.Cqrs.Commands;
+using Lishl.Core.Requests.Link;
+using Lishl.Core.Requests.QRCode;
+using Lishl.Core.Requests.User;
+using Lishl.GraphQL.Cqrs.Commands.Links;
+using Lishl.GraphQL.Cqrs.Commands.QRCodes;
+using Lishl.GraphQL.Cqrs.Commands.Users;
 
 namespace Lishl.GraphQL
 {

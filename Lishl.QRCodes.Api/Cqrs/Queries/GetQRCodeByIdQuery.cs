@@ -1,5 +1,4 @@
-﻿using System;
-using Lishl.Core.Models;
+﻿using Lishl.Core.Models;
 using MediatR;
 
 namespace Lishl.QRCodes.Api.Cqrs.Queries

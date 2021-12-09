@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
+using Lishl.Core.Requests.Link;
 
 namespace Lishl.Core.Services
 {
