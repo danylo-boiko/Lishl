@@ -14,7 +14,7 @@ namespace Lishl.GraphQL.GraphQL.Types.QRCode
 
             Field(l => l.Id).Description("Identifier of the link");
             Field(l => l.Url).Description("Url");
-            Field(l => l.QRCodeBitmap).Description("Bitmap of the url");
+            Field("qrCodeBitmap",l => l.QRCodeBitmap).Description("Bitmap of the url");
 
             FieldAsync<UserType>("user", "User details", resolve: async content => await mediator.Send(new GetUserByIdQuery
             {
