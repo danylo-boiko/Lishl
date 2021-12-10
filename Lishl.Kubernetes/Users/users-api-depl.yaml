@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-api
+          image: danielboyko/lishl.users.api:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-api-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: users-api
+  ports:
+    - name: users-api
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  

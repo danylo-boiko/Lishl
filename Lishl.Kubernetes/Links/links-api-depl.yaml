@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: links-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: links-api
+  template:
+    metadata:
+      labels:
+        app: links-api
+    spec:
+      containers:
+        - name: links-api
+          image: danielboyko/lishl.links.api:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: links-api-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: links-api
+  ports:
+    - name: links-api
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  

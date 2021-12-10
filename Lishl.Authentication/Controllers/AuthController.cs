@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using Lishl.Authentication.AuthenticationService;
 using Lishl.Authentication.Responses;
 using Lishl.Core.Models;

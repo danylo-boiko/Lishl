@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qrcodes-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qrcodes-api
+  template:
+    metadata:
+      labels:
+        app: qrcodes-api
+    spec:
+      containers:
+        - name: qrcodes-api
+          image: danielboyko/lishl.qrcodes.api:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qrcodes-api-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: qrcodes-api
+  ports:
+    - name: qrcodes-api
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  

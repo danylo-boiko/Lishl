@@ -1,4 +1,6 @@
-﻿namespace Lishl.Authentication.Responses
+﻿using System;
+
+namespace Lishl.Authentication.Responses
 {
     public class AuthResponse
     {

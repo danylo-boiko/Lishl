@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Lishl.Core.Enums;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphql
+  template:
+    metadata:
+      labels:
+        app: graphql
+    spec:
+      containers:
+        - name: graphql
+          image: danielboyko/lishl.graphql:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: graphql
+  ports:
+    - name: graphql
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  
