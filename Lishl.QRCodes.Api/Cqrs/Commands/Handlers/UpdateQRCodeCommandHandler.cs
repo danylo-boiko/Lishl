@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
 using Lishl.QRCodes.Api.Helpers;

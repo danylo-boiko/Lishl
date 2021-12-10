@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using QRCoder;
 
 namespace Lishl.QRCodes.Api.Helpers

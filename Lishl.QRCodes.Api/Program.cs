@@ -3,19 +3,15 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Lishl.Authentication.Core;
 using Lishl.Core.Repositories;
-using Lishl.Core.Requests;
-using Lishl.Core.Validators;
+using Lishl.Core.Requests.QRCode;
+using Lishl.Core.Validators.QRCode;
 using Lishl.Infrastructure.MongoDb;
 using Lishl.Infrastructure.MongoDb.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMongoDb("QRCodesService", builder.Configuration.GetConnectionString("MongoDbConnection"));
+builder.Services.AddMongoDb("qrcodesservice", builder.Configuration.GetConnectionString("MongoDbConnection"));
 builder.Services.AddScoped<IQRCodesRepository, QRCodesRepository>();
 
 builder.Services.AddFluentValidation();

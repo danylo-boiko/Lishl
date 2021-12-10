@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-qrcodes-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-qrcodes-api
+  template:
+    metadata:
+      labels:
+        app: mongodb-qrcodes-api
+    spec:
+      containers:
+        - name: mongodb-qrcodes-api
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "pa55word"
+            - name: MONGO_INITDB_DATABASE
+              value: "qrcodesservice"
+          volumeMounts:
+            - name: qrcodesservice
+              mountPath: /var/opt/qrcodesservice/data
+      volumes:
+        - name: qrcodesservice
+          persistentVolumeClaim:
+            claimName: database-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-qrcodes-api-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: mongodb-qrcodes-api
+  ports:
+    - name: mongodb-qrcodes-api
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-qrcodes-api-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: mongodb-qrcodes-api
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

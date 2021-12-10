@@ -5,7 +5,7 @@ using AutoMapper;
 using Lishl.Authentication.Core.Attributes;
 using Lishl.Core;
 using Lishl.Core.Enums;
-using Lishl.Core.Requests;
+using Lishl.Core.Requests.User;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Cqrs.Queries;
 using Lishl.Users.Api.Responses;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GraphQL;
 using Lishl.Core;
 using Lishl.Core.Models;
-using Lishl.Core.Requests;
+using Lishl.Core.Requests.Link;
 using Lishl.Core.Services;
 
 namespace Lishl.GraphQL.Services

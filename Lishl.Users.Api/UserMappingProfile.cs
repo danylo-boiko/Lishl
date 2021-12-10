@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Lishl.Core.Models;
-using Lishl.Core.Requests;
+using Lishl.Core.Requests.User;
 using Lishl.Users.Api.Cqrs.Commands;
 using Lishl.Users.Api.Responses;
 using Microsoft.AspNetCore.Identity;

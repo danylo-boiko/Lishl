@@ -1,8 +1,12 @@
 ﻿using System;
 using GraphQL;
 using GraphQL.Types;
-using Lishl.GraphQL.Cqrs.Queries;
-using Lishl.GraphQL.GraphQL.Types;
+using Lishl.GraphQL.Cqrs.Queries.Links;
+using Lishl.GraphQL.Cqrs.Queries.QRCodes;
+using Lishl.GraphQL.Cqrs.Queries.Users;
+using Lishl.GraphQL.GraphQL.Types.Link;
+using Lishl.GraphQL.GraphQL.Types.QRCode;
+using Lishl.GraphQL.GraphQL.Types.User;
 using MediatR;
 
 namespace Lishl.GraphQL.GraphQL.Queries

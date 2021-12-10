@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: lishl.com
+      http:
+        paths:
+          - path: /api/v1/links
+            pathType: Prefix
+            backend:
+              service:
+                name: links-api-clusterip-srv
+                port:
+                  number: 80
+          - path: /api/v1/users
+            pathType: Prefix
+            backend:
+              service:
+                name: users-api-clusterip-srv
+                port:
+                  number: 80
+          - path: /api/v1/qrcodes
+            pathType: Prefix
+            backend:
+              service:
+                name: qrcodes-api-clusterip-srv
+                port:
+                  number: 80
+          - path: /api/v1/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-clusterip-srv
+                port:
+                  number: 80
+          - path: /graphql
+            pathType: Prefix
+            backend:
+              service:
+                name: graphql-clusterip-srv
+                port:
+                  number: 80
+                    

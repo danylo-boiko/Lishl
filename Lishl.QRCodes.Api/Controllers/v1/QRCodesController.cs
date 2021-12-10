@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Lishl.Core;
-using Lishl.Core.Requests;
+using Lishl.Core.Requests.QRCode;
 using Lishl.QRCodes.Api.Cqrs.Commands;
 using Lishl.QRCodes.Api.Cqrs.Queries;
 using Lishl.QRCodes.Api.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lishl.QRCodes.Api.Controllers.v1

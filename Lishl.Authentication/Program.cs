@@ -1,13 +1,13 @@
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Lishl.Authentication.AuthenticationService;
 using Lishl.Authentication.Core;
 using Lishl.Authentication.Core.Configurations;
-using Lishl.Authentication.Services;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
-using Lishl.Core.Requests;
-using Lishl.Core.Validators;
+using Lishl.Core.Requests.Auth;
+using Lishl.Core.Validators.Auth;
 using Lishl.Infrastructure.PostgreSql;
 using Lishl.Infrastructure.PostgreSql.Repositories;
 using Lishl.Users.Api;

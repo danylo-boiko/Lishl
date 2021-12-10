@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Requests;
+using Lishl.Core.Requests.QRCode;
 using Lishl.QRCodes.Api.Cqrs.Commands;
 using Lishl.QRCodes.Api.Responses;
 

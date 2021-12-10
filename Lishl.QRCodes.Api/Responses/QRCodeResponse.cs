@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lishl.QRCodes.Api.Responses
+﻿namespace Lishl.QRCodes.Api.Responses
 {
     public class QRCodeResponse
     {
