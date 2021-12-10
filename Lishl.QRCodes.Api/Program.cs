@@ -7,12 +7,15 @@ using Lishl.Core.Requests.QRCode;
 using Lishl.Core.Validators.QRCode;
 using Lishl.Infrastructure.MongoDb;
 using Lishl.Infrastructure.MongoDb.Repositories;
+using Lishl.QRCodes.Api.QRCodeService;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMongoDb("qrcodesservice", builder.Configuration.GetConnectionString("MongoDbConnection"));
+builder.Services.AddMongoDb(builder.Configuration.GetConnectionString("MongoDbDatabase"), 
+    builder.Configuration.GetConnectionString("MongoDbConnection"));
 builder.Services.AddScoped<IQRCodesRepository, QRCodesRepository>();
+builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 
 builder.Services.AddFluentValidation();
 builder.Services.AddTransient<IValidator<CreateQRCodeRequest>, CreateQRCodeRequestValidator>();
