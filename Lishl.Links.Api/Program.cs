@@ -15,7 +15,8 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMongoDb("linksservice", builder.Configuration.GetConnectionString("MongoDbConnection"));
+builder.Services.AddMongoDb(builder.Configuration.GetConnectionString("MongoDbDatabase"), 
+    builder.Configuration.GetConnectionString("MongoDbConnection"));
 builder.Services.AddScoped<ILinksRepository, LinksRepository>();
 
 builder.Services.AddFluentValidation();

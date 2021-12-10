@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Lishl.Core.Models;
 using Lishl.Core.Repositories;
-using Lishl.QRCodes.Api.Helpers;
+using Lishl.QRCodes.Api.QRCodeService;
 using MediatR;
 
 namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
@@ -9,11 +9,13 @@ namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
     public class UpdateQRCodeCommandHandler : IRequestHandler<UpdateQRCodeCommand, QRCode>
     {
         private readonly IQRCodesRepository _qrCodesRepository;
+        private readonly IQRCodeService _qrCodeService;
         private readonly IMapper _mapper;
 
-        public UpdateQRCodeCommandHandler(IQRCodesRepository qrCodesRepository, IMapper mapper)
+        public UpdateQRCodeCommandHandler(IQRCodesRepository qrCodesRepository, IQRCodeService qrCodeService, IMapper mapper)
         {
             _qrCodesRepository = qrCodesRepository;
+            _qrCodeService = qrCodeService;
             _mapper = mapper;
         }
 
@@ -21,7 +23,7 @@ namespace Lishl.QRCodes.Api.Cqrs.Commands.Handlers
         {
             var qrCode = _mapper.Map<QRCode>(command);
 
-            qrCode.QRCodeBitmap = QRCodeHelper.GetUrlBitmap(qrCode.Url);
+            qrCode.QRCodeBitmap = _qrCodeService.ConvertUrlToByteArray(qrCode.Url);
             
             await _qrCodesRepository.UpdateAsync(qrCode);
             
